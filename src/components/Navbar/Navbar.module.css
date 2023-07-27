@@ -1,7 +1,13 @@
-.navigation{
-    grid-area:  n;
-   background-color: rgb(88, 241, 234) ;
-   }
-   .item{
-    color: white;
-   }
+.navigation {
+    grid-area: n;
+    background-color: whitesmoke;
+}
+
+.item a {
+    color: deepskyblue;
+    text-decoration: none;
+}
+
+.item .activeLink {
+    color:darkblue;
+}
