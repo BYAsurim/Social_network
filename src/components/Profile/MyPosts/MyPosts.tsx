@@ -1,16 +1,23 @@
 import React from 'react';
 import s from "./MyPosts.module.css";
 import Post from "../Posts/Post";
-import {v1} from "uuid";
+import {PropsTypePostArray} from "../../../index";
 
-const MyPosts = () => {
-    const posts = [
-        { id: v1(), post: "Сегодня замечательный день!", likecount: 10 },
-        { id: v1(), post: "Наконец-то закончил проект!", likecount: 25 },
-        { id: v1(), post: "Как же я люблю путешествовать!", likecount: 15 },
-        { id: v1(), post: "Вчера был на концерте своей любимой группы!", likecount: 30 },
-        { id: v1(), post: "Новый курс по JavaScript на IT-KAMASUTRA просто потрясающий!", likecount: 20 }
-    ];
+
+type MyPostsPropsType = {
+    posts:PropsTypePostArray
+}
+
+
+
+const MyPosts = (props:MyPostsPropsType) => {
+    // const posts = [
+    //     { id: v1(), post: "Сегодня замечательный день!", likecount: 10 },
+    //     { id: v1(), post: "Наконец-то закончил проект!", likecount: 25 },
+    //     { id: v1(), post: "Как же я люблю путешествовать!", likecount: 15 },
+    //     { id: v1(), post: "Вчера был на концерте своей любимой группы!", likecount: 30 },
+    //     { id: v1(), post: "Новый курс по JavaScript на IT-KAMASUTRA просто потрясающий!", likecount: 20 }
+    // ];
 
     return (
         <div>
@@ -23,9 +30,9 @@ const MyPosts = () => {
             </div>
             <div className={s.posts}>
                 {
-                    posts.map((el)=>{
+                    props.posts.map((el)=>{
                      return(
-                         <Post id={el.id} message={el.post} likeCounts={el.likecount}/>
+                         <Post id={el.id} post={el.post} likecount={el.likecount}/>
                      )
                     })
                 }

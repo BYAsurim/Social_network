@@ -1,41 +1,23 @@
 import React from 'react';
 import s from './Dialogs.module.css'
-import {v1} from "uuid";
+
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
+import {DialogItemPropsArrayType, MessagePropsArrayType} from "../../index";
 
- export type DialogItemPropsType = {
-    id: string
-    name: string
-}
-export type MessagePropsType = {
-    id:string
-    message:string
+ export type DialogsPropsType = {
+     data:DialogItemPropsArrayType
+     messages:MessagePropsArrayType
 }
 
-type DialogsPropsType = {}
 
-const Dialogs = (props: DialogsPropsType) => {
+const Dialogs = (props:DialogsPropsType) => {
 
-    const data = [
-        { id: v1(), name: "Sasha" },
-        { id: v1(), name: "Valera" },
-        { id: v1(), name: "Dima" },
-        { id: v1(), name: "Lena" },
-        { id: v1(), name: "Emily" },
-        { id: v1(), name: "Frank" }
-    ];
-    const messages = [
-        { id: v1(), message: "Привет! Как дела?" },
-        { id: v1(), message: "Как прошло твоё выходное?" },
-        { id: v1(), message: "У нас есть новости по проекту. Можем обсудить на совещании в 15:00?" },
-        { id: v1(), message: "Спасибо за отзыв! Очень рады, что наш продукт вам понравился." },
-        { id: v1(), message: "Не забудьте записаться на курс по JavaScript!" }
-    ];
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItem}>
-                {data.map(el =><DialogItem id={el.id} name={el.name}/>)}
+                {props.data.map(el =><DialogItem id={el.id} name={el.name}/>)}
 
 
                 {/*<DialogItem id={'1'} name={'Sasha'}/>*/}
@@ -47,7 +29,7 @@ const Dialogs = (props: DialogsPropsType) => {
 
             <div className={s.messages}>
                 {
-                    messages.map(el=><Message id={el.id} message={el.message}/>)
+                    props.messages.map(el=><Message id={el.id} message={el.message}/>)
                 }
                 {/*<Message message={'hi'}/>*/}
                 {/*<Message message={'How are you?'}/>*/}
