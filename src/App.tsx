@@ -16,8 +16,12 @@ function App() {
                 <Header/>
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/Dialogs'} component={Dialogs}/>
-                    <Route path={'/Profile'} component={Profile}/>
+                    {/*<Route path={'/Dialogs'} component={Dialogs}/>*/}
+                    {/*<Route path={'/Profile'} component={Profile}/>*/}
+
+                    <Route path={'/Dialogs'} render={()=><Dialogs />}/>
+                    <Route path={'/Profile'} render={()=><Profile />}/>
+
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
