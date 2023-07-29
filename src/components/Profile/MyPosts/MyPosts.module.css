@@ -1,0 +1,15 @@
+.postsBlock{
+    padding: 10px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-weight: bolder;
+}
+.posts{
+    margin-top: 10px;
+}
+.button{
+    margin-top: 10px;
+    margin-left: 110px;
+}
+.input{
+    opacity: 0.5;
+}

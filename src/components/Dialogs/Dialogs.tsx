@@ -1,42 +1,80 @@
 import React from 'react';
 import s from './Dialogs.module.css'
 import {NavLink} from "react-router-dom";
+import {v1} from "uuid";
 
-type DialogsPropsType = {
-
+type DialogItemPropsType = {
+    id: string
+    name: string
+}
+type MessagePropsType = {
+    id:string
+    message:string
 }
 
+type DialogsPropsType = {}
+
 const Dialogs = (props: DialogsPropsType) => {
+
+    const data = [
+        { id: v1(), name: "Sasha" },
+        { id: v1(), name: "Valera" },
+        { id: v1(), name: "Dima" },
+        { id: v1(), name: "Lena" },
+        { id: v1(), name: "Emily" },
+        { id: v1(), name: "Frank" }
+    ];
+    const messages = [
+        { id: v1(), message: "Привет! Как дела?" },
+        { id: v1(), message: "Как прошло твоё выходное?" },
+        { id: v1(), message: "У нас есть новости по проекту. Можем обсудить на совещании в 15:00?" },
+        { id: v1(), message: "Спасибо за отзыв! Очень рады, что наш продукт вам понравился." },
+        { id: v1(), message: "Не забудьте записаться на курс по JavaScript!" }
+    ];
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItem}>
-                <div className={s.dialog + ' ' + s.active} >
-                  <NavLink to={'/dialogs/1'}> Sasha </NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to={'/dialogs/2'}> Valera </NavLink>
+                {data.map(el =><DialogItem id={el.id} name={el.name}/>)}
 
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to={'/dialogs/3'}> Dima </NavLink>
 
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to={'/dialogs/4'}> Sveta </NavLink>
-
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to={'/dialogs/5'}> Lena </NavLink>
-
-                </div>
+                {/*<DialogItem id={'1'} name={'Sasha'}/>*/}
+                {/*<DialogItem id={'2'} name={'Valera'}/>*/}
+                {/*<DialogItem id={'3'} name={'Dima'}/>*/}
+                {/*<DialogItem id={'4'} name={'Sveta'}/>*/}
+                {/*<DialogItem id={'5'} name={'Lena'}/>*/}
             </div>
+
             <div className={s.messages}>
-                <div className={s.message}>hi</div>
-                <div className={s.message}>How are you?</div>
-                <div className={s.message}>Whats app??</div>
+                {
+                    messages.map(el=><Message id={el.id} message={el.message}/>)
+                }
+                {/*<Message message={'hi'}/>*/}
+                {/*<Message message={'How are you?'}/>*/}
+                {/*<Message message={'Whats app??'}/>*/}
+
             </div>
         </div>
-    );
-};
+    )
+}
+
+const DialogItem = (props: DialogItemPropsType) => {
+    return (
+        <div className={s.dialog + ' ' + s.active}>
+            <NavLink to={'/dialogs/' + props.id}> {props.name} </NavLink>
+        </div>
+    )
+}
 
 export default Dialogs;
+
+const Message = (props: MessagePropsType) => {
+
+
+
+
+    return (
+        <div className={s.message}>
+            {props.message}
+        </div>
+    )
+}
