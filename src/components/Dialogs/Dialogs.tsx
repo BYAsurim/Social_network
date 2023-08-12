@@ -3,11 +3,11 @@ import s from './Dialogs.module.css'
 
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogItemPropsArrayType, MessagePropsArrayType} from "../../index";
+import { MessagePropsType,  UserPropsType} from "../../redax/state";
 
  export type DialogsPropsType = {
-     data:DialogItemPropsArrayType
-     messages:MessagePropsArrayType
+     data:UserPropsType[]
+     messages:Array<MessagePropsType>
 }
 
 

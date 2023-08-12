@@ -1,12 +1,12 @@
 import React from "react";
 import s from "./Post.module.css";
-import {PropsTypePost} from "../../../index";
+import {PostPropsType} from "../../../redax/state";
 
 
 
 
 
-const Post = (props: PropsTypePost) => {
+const Post = (props:PostPropsType) => {
     return (
         <div>
             <div className={s.item}>

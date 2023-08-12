@@ -8,19 +8,17 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {DialogItemPropsArrayType, MessagePropsArrayType, PropsTypePostArray} from "./index";
+import {StatePropsType} from "./redax/state";
 
 
 type AppPropsType = {
-    posts: PropsTypePostArray
-    data: DialogItemPropsArrayType
-    messages: MessagePropsArrayType
+    state:StatePropsType
 
 }
 
 
 function App(props: AppPropsType) {
-debugger
+
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -30,11 +28,11 @@ debugger
                     {/*<Route path={'/Dialogs'} component={Dialogs}/>*/}
                     {/*<Route path={'/Profile'} component={Profile}/>*/}
 
-                    <Route path={'/Dialogs'} render={() => <Dialogs data={props.data}
-                                                                    messages={props.messages}
+                    <Route path={'/Dialogs'} render={() => <Dialogs data={props.state.dialogsPage.profile}
+                                                                    messages={props.state.dialogsPage.messages  }
 
                     />}/>
-                    <Route path={'/Profile'} render={() => <Profile  posts={props.posts} />}/>
+                    <Route path={'/Profile'} render={() => <Profile  posts={props.state.profilePage.posts} />}/>
 
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
