@@ -14,8 +14,22 @@ padding: 10px;
     color: darkblue;
 }
 .messages{
+
+    margin-bottom: 10px;
+    overflow: hidden;
     padding: 10px;
 }
 .message{
-padding: 2px;
+
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    max-width: 80%;
+
+}
+.img{
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
 }
