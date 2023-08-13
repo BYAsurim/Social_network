@@ -9,6 +9,13 @@ export type UserPropsType = {
     id: string
     name: string
 }
+export type FriendsPropsType = {
+    id:string
+    name: string
+}
+export type FriendsPropsTypeArray={
+    friends : Array<FriendsPropsType>
+}
 export type MessagePropsType = {
     id: string
     message: string
@@ -24,6 +31,7 @@ export type DialogsPageType = {
 export type StatePropsType = {
     profilePage: PostPropsTypeArray
     dialogsPage:DialogsPageType
+    sidebar:FriendsPropsTypeArray
 }
 
 let state: StatePropsType = {
@@ -51,6 +59,13 @@ let state: StatePropsType = {
             {id: v1(), message: "У нас есть новости по проекту. Можем обсудить на совещании в 15:00?"},
             {id: v1(), message: "Спасибо за отзыв! Очень рады, что наш продукт вам понравился."},
             {id: v1(), message: "Не забудьте записаться на курс по JavaScript!"}
+        ]
+    },
+    sidebar: {
+        friends:[
+            { id: v1(), name: 'Ivan' },
+            { id: v1(), name: 'Elena' },
+            { id: v1(), name: 'Katya' }
         ]
     }
 

@@ -8,11 +8,13 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {StatePropsType} from "./redax/state";
+import state, {StatePropsType} from "./redax/state";
+import Friends from "./components/Friends/Friends";
+
 
 
 type AppPropsType = {
-    state:StatePropsType
+    state: StatePropsType
 
 }
 
@@ -23,20 +25,23 @@ function App(props: AppPropsType) {
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
-                <Navbar/>
+                <Navbar state={state} />
                 <div className={'app-wrapper-content'}>
-                    {/*<Route path={'/Dialogs'} component={Dialogs}/>*/}
-                    {/*<Route path={'/Profile'} component={Profile}/>*/}
 
-                    <Route path={'/Dialogs'} render={() => <Dialogs data={props.state.dialogsPage.profile}
-                                                                    messages={props.state.dialogsPage.messages  }
+
+                    <Route path={'/dialogs'} render={() => <Dialogs data={props.state.dialogsPage.profile}
+                                                                    messages={props.state.dialogsPage.messages}
 
                     />}/>
-                    <Route path={'/Profile'} render={() => <Profile  posts={props.state.profilePage.posts} />}/>
+                    <Route path={'/profile'} render={() => <Profile posts={props.state.profilePage.posts}/>}/>
 
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
+                    <Route path={'/friends'} render={() => <Friends/>}/>
+
+
+
                 </div>
 
             </div>
@@ -46,6 +51,7 @@ function App(props: AppPropsType) {
 
 
 export default App;
+
 
 
 
