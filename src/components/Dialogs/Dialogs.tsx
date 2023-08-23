@@ -3,39 +3,47 @@ import s from './Dialogs.module.css'
 
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import { MessagePropsType,  UserPropsType} from "../../redax/state";
+import {MessagePropsType, UserPropsType} from "../../redax/state";
 
- export type DialogsPropsType = {
-     data:UserPropsType[]
-     messages:Array<MessagePropsType>
+export type DialogsPropsType = {
+    data: UserPropsType[]
+    messages: Array<MessagePropsType>
 }
 
 
-const Dialogs = (props:DialogsPropsType) => {
+const Dialogs = (props: DialogsPropsType) => {
 
+    const newMessageElement = React.createRef<HTMLInputElement>()
+
+    const addMessageHandler = () => {
+        if (newMessageElement.current) {
+            let text = newMessageElement.current.value
+            alert(text)
+        }
+    }
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItem}>
-                {props.data.map(el =><DialogItem id={el.id} name={el.name}/>)}
-
-
-                {/*<DialogItem id={'1'} name={'Sasha'}/>*/}
-                {/*<DialogItem id={'2'} name={'Valera'}/>*/}
-                {/*<DialogItem id={'3'} name={'Dima'}/>*/}
-                {/*<DialogItem id={'4'} name={'Sveta'}/>*/}
-                {/*<DialogItem id={'5'} name={'Lena'}/>*/}
+                {props.data.map(el => <DialogItem id={el.id} name={el.name}/>)}
             </div>
 
             <div className={s.messages}>
                 {
-                    props.messages.map(el=><Message id={el.id} message={el.message}/>)
+                    props.messages.map(el => <Message id={el.id} message={el.message}/>)
                 }
-                {/*<Message message={'hi'}/>*/}
-                {/*<Message message={'How are you?'}/>*/}
-                {/*<Message message={'Whats app??'}/>*/}
 
             </div>
+                    <div> </div>
+            <div className={s.inputButton}>
+                <div>
+                    <input ref={newMessageElement} className={s.inputField}/>
+                </div>
+                <div>
+                    <button onClick={addMessageHandler} className={s.sendButton}>send</button>
+                </div>
+            </div>
+
         </div>
     )
 }

@@ -33,3 +33,32 @@ padding: 10px;
     height: 30px;
     border-radius: 25px;
 }
+
+.inputButton {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.inputField {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: -50px;
+    width: 300px;
+
+}
+
+.sendButton {
+    padding: 10px 20px;
+    background: blue;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: -100px;
+}
+
+.sendButton:hover {
+    background: darkblue;
+}
