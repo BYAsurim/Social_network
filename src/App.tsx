@@ -12,9 +12,9 @@ import state, {StatePropsType} from "./redax/state";
 import Friends from "./components/Friends/Friends";
 
 
-
 type AppPropsType = {
     state: StatePropsType
+    addPost: (post: string) => void
 
 }
 
@@ -25,7 +25,7 @@ function App(props: AppPropsType) {
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
-                <Navbar state={state} />
+                <Navbar state={state}/>
                 <div className={'app-wrapper-content'}>
 
 
@@ -33,13 +33,16 @@ function App(props: AppPropsType) {
                                                                     messages={props.state.dialogsPage.messages}
 
                     />}/>
-                    <Route path={'/profile'} render={() => <Profile posts={props.state.profilePage.posts}/>}/>
+                    <Route path={'/profile'} render={() => <Profile
+                        addPost={props.addPost}
+                        posts={props.state.profilePage.posts}
+
+                    />}/>
 
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
                     <Route path={'/friends'} render={() => <Friends/>}/>
-
 
 
                 </div>

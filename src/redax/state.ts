@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {rerenderThree} from "../index";
+
 
 export type PostPropsType = {
     id: string
@@ -69,6 +71,12 @@ let state: StatePropsType = {
         ]
     }
 
+}
+
+export const addPost = (post:string)=>{
+    const newPost = {id: v1(), post, likecount: 0}
+    state.profilePage.posts.push(newPost)
+    rerenderThree()
 }
 
 export default state

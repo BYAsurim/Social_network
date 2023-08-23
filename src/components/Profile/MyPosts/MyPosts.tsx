@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from "./MyPosts.module.css";
 import Post from "../Posts/Post";
-import {PostPropsTypeArray} from "../../../redax/state";
+import {PostPropsType} from "../../../redax/state";
 
 
-type MyPostsPropsType = PostPropsTypeArray
+
+type MyPostsPropsType = {
+    posts: PostPropsType[],
+    addPost: (post:string)=>void
+}
 
 
 const MyPosts = (props: MyPostsPropsType) => {
@@ -12,10 +16,14 @@ const MyPosts = (props: MyPostsPropsType) => {
     const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
+
         if (newPostElement.current) {
-            let text = newPostElement.current.value
-            alert(text)
+            props.addPost(newPostElement.current.value)
+            newPostElement.current.value= ''
         }
+    }
+    const changeInputHandler = (e:ChangeEvent<HTMLTextAreaElement>)=>{
+        props.addPost(e.currentTarget.value)
     }
 
     return (
@@ -23,7 +31,7 @@ const MyPosts = (props: MyPostsPropsType) => {
             <div className={s.postsBlock}>
                 My posts
             </div>
-            <textarea ref={newPostElement} className={s.input}></textarea>
+            <textarea ref={newPostElement} className={s.input} onChange={changeInputHandler}></textarea>
 
             <div className={s.button}>
                 <button onClick={addPost}>Add post</button>
@@ -32,7 +40,7 @@ const MyPosts = (props: MyPostsPropsType) => {
                 {
                     props.posts.map((el) => {
                         return (
-                            <Post id={el.id} post={el.post} likecount={el.likecount}/>
+                            <Post key={el.id} id={el.id} post={el.post} likecount={el.likecount}/>
                         )
                     })
                 }
