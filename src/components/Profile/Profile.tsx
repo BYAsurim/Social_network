@@ -2,14 +2,15 @@ import React from "react";
 import s from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPosts  from "./MyPosts/MyPosts";
-import {PostPropsType} from "../../redax/state";
+import {PostPropsTypeArray} from "../../redax/state";
 
 
 
 
 type ProfilePropsType = {
-    posts: PostPropsType[]
-    addPost: (post:string)=>void
+    profilePage: PostPropsTypeArray
+    addPost: ()=>void
+    upDateNewPostText: (text:string)=> void
 }
 
 
@@ -20,7 +21,7 @@ const Profile = (props:ProfilePropsType) => {
         <div>
 
                 <ProfileInfo/>
-                <MyPosts posts={props.posts} addPost={props.addPost} />
+                <MyPosts profilePage={props.profilePage} addPost={props.addPost}  upDateNewPostText={props.upDateNewPostText}/>
 
 
         </div>

@@ -1,7 +1,10 @@
 import {v1} from "uuid";
-import {rerenderThree} from "../index";
 
 
+
+export let rerenderThree = ()=>{
+    console.log('rerenderThree')
+}
 export type PostPropsType = {
     id: string
     post: string;
@@ -24,6 +27,7 @@ export type MessagePropsType = {
 }
 export type PostPropsTypeArray = {
     posts: PostPropsType[]
+    newPostText: string
 }
 export type DialogsPageType = {
     profile:UserPropsType[]
@@ -44,7 +48,9 @@ let state: StatePropsType = {
             {id: v1(), post: "Как же я люблю путешествовать!", likecount: 15},
             {id: v1(), post: "Вчера был на концерте своей любимой группы!", likecount: 30},
             {id: v1(), post: "Новый курс по JavaScript на IT-KAMASUTRA просто потрясающий!", likecount: 20}
-        ]
+        ],
+        newPostText: ''
+
     },
     dialogsPage: {
         profile: [
@@ -73,10 +79,21 @@ let state: StatePropsType = {
 
 }
 
-export const addPost = (post:string)=>{
-    const newPost = {id: v1(), post, likecount: 0}
+
+export const addPost = ()=>{
+    const newPost = {id: v1(), post:state.profilePage.newPostText , likecount: 0}
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
     rerenderThree()
+
+}
+export const upDateNewPostText = (text:string)=>{
+    state.profilePage.newPostText = text
+    rerenderThree()
+
+}
+export const subscribe = (observer: ()=>void)=>{
+    rerenderThree = observer
 }
 
 export default state

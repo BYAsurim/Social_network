@@ -14,7 +14,8 @@ import Friends from "./components/Friends/Friends";
 
 type AppPropsType = {
     state: StatePropsType
-    addPost: (post: string) => void
+    addPost: () => void
+    upDateNewPostText:(text:string)=> void
 
 }
 
@@ -35,7 +36,8 @@ function App(props: AppPropsType) {
                     />}/>
                     <Route path={'/profile'} render={() => <Profile
                         addPost={props.addPost}
-                        posts={props.state.profilePage.posts}
+                        profilePage={props.state.profilePage}
+                        upDateNewPostText={props.upDateNewPostText}
 
                     />}/>
 
