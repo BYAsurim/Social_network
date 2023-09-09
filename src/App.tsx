@@ -8,20 +8,20 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import state, {StatePropsType} from "./redax/state";
+import {StorePropsType} from "./redax/state";
 import Friends from "./components/Friends/Friends";
 
 
 type AppPropsType = {
-    state: StatePropsType
-    addPost: () => void
-    upDateNewPostText:(text:string)=> void
+    store: StorePropsType
+    // addPost: () => void
+    // upDateNewPostText:(text:string)=> void
 
 }
 
 
-function App(props: AppPropsType) {
-
+const App: React.FC<AppPropsType> = (props) =>{
+const state = props.store.getState()
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -30,14 +30,14 @@ function App(props: AppPropsType) {
                 <div className={'app-wrapper-content'}>
 
 
-                    <Route path={'/dialogs'} render={() => <Dialogs data={props.state.dialogsPage.profile}
-                                                                    messages={props.state.dialogsPage.messages}
+                    <Route path={'/dialogs'} render={() => <Dialogs data={state.dialogsPage.profile}
+                                                                    messages={state.dialogsPage.messages}
 
                     />}/>
                     <Route path={'/profile'} render={() => <Profile
-                        addPost={props.addPost}
-                        profilePage={props.state.profilePage}
-                        upDateNewPostText={props.upDateNewPostText}
+                        addPost={props.store.addPost.bind(props.store)}
+                        profilePage={state.profilePage}
+                        upDateNewPostText={props.store.upDateNewPostText.bind(props.store)}
 
                     />}/>
 
