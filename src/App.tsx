@@ -35,9 +35,11 @@ const state = props.store.getState()
 
                     />}/>
                     <Route path={'/profile'} render={() => <Profile
-                        addPost={props.store.addPost.bind(props.store)}
+                        // addPost={props.store.addPost.bind(props.store)}
+                        dispatch={props.store.dispatch.bind(props.store)}
+
+                        // upDateNewPostText={props.store.upDateNewPostText.bind(props.store)}
                         profilePage={state.profilePage}
-                        upDateNewPostText={props.store.upDateNewPostText.bind(props.store)}
 
                     />}/>
 

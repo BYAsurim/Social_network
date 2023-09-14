@@ -40,12 +40,23 @@ export type StatePropsType = {
 }
 export type StorePropsType = {
     _state: StatePropsType
-    addPost: () => void
-    upDateNewPostText: (text: string) => void
+    // addPost: () => void
+    // upDateNewPostText: (text: string) => void
     subscribe: (observer: () => void) => void
     getState: () => StatePropsType
     _callSubcriber: () => void
+    dispatch: (action: ActionsType)=> void
 }
+
+export type AddPostActionType = {
+    type:'ADD-POST',
+    newPost: string
+}
+export type UpDateNewTextPostActionType = {
+    type:'NEW-POST-TEXT',
+    text: string
+}
+export type ActionsType = AddPostActionType | UpDateNewTextPostActionType
 
 let store: StorePropsType = {
     _state: {
@@ -91,24 +102,39 @@ let store: StorePropsType = {
     _callSubcriber() {
         console.log('State changed')
     },
-    addPost() {
-        debugger
-        const newPost = {
-            id: v1(),
-            post: this._state.profilePage.newPostText,
-            likecount: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubcriber()
+    // addPost() {
+    //     const newPost = {
+    //         id: v1(),
+    //         post: this._state.profilePage.newPostText,
+    //         likecount: 0
+    //     }
+    //     this._state.profilePage.posts.push(newPost)
+    //     this._state.profilePage.newPostText = ''
+    //     this._callSubcriber()
+    //
+    // },
+    // upDateNewPostText(text: string) {
+    //     this._state.profilePage.newPostText = text
+    //     this._callSubcriber()
+    // },
 
-    },
-    upDateNewPostText(text: string) {
-        this._state.profilePage.newPostText = text
-        this._callSubcriber()
-    },
     subscribe(observer: () => void) {
         this._callSubcriber = observer
+    },
+    dispatch(action: ActionsType){
+        if(action.type === 'ADD-POST'){
+            const newPost = {
+                id: v1(),
+                post: this._state.profilePage.newPostText,
+                likecount: 0
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._callSubcriber()
+        }else if(action.type === 'NEW-POST-TEXT'){
+            this._state.profilePage.newPostText = action.text
+            this._callSubcriber()
+        }
     }
 }
 
