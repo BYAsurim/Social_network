@@ -1,12 +1,12 @@
 import React from 'react';
 import s from "./MyPosts.module.css";
 import Post from "../Posts/Post";
-import {ActionsType, PostPropsTypeArray} from "../../../redax/state";
+import {ActionsType, addPostAC, PostPropsTypeArray, UpDateNewTextPostAC} from "../../../redax/state";
 
 
 type MyPostsPropsType = {
     profilePage: PostPropsTypeArray
-    dispatch:(action:ActionsType) => void
+    dispatch: (action: ActionsType) => void
     // addPost: () => void
     // upDateNewPostText: (text: string) => void
 }
@@ -23,7 +23,8 @@ const MyPosts = (props: MyPostsPropsType) => {
         //     // newPostElement.current.value = ''
         // }
         if (newPostElement.current) {
-            props.dispatch({type: 'ADD-POST', newPost: newPostElement.current.value  })
+            // props.dispatch({type: 'ADD-POST', newPost: newPostElement.current.value  })
+            props.dispatch(addPostAC(newPostElement.current.value))
             newPostElement.current.value = ''
         }
 
@@ -32,7 +33,8 @@ const MyPosts = (props: MyPostsPropsType) => {
         if (newPostElement.current) {
             let text = newPostElement.current?.value;
             // props.upDateNewPostText(text)
-            props.dispatch({type: "NEW-POST-TEXT", text})
+            // props.dispatch({type: "NEW-POST-TEXT", text})
+            props.dispatch(UpDateNewTextPostAC(text))
         }
     }
     // const changeInputHandler = (e:ChangeEvent<HTMLTextAreaElement>)=>{
@@ -44,7 +46,8 @@ const MyPosts = (props: MyPostsPropsType) => {
             <div className={s.postsBlock}>
                 My posts
             </div>
-            <textarea  className={s.input} ref={newPostElement} onChange={changeInputHandler} value={props.profilePage.newPostText}></textarea>
+            <textarea className={s.input} ref={newPostElement} onChange={changeInputHandler}
+                      value={props.profilePage.newPostText}></textarea>
 
             <div className={s.button}>
                 <button onClick={addPost}>Add post</button>

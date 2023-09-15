@@ -45,18 +45,32 @@ export type StorePropsType = {
     subscribe: (observer: () => void) => void
     getState: () => StatePropsType
     _callSubcriber: () => void
-    dispatch: (action: ActionsType)=> void
+    dispatch: (action: ActionsType) => void
 }
 
-export type AddPostActionType = {
-    type:'ADD-POST',
-    newPost: string
+// export type AddPostActionType = {
+//     type:'ADD-POST',
+//     newPost: string
+// }
+// export type AddPostActionType = ReturnType<typeof addPostAC>
+// export type UpDateNewTextPostActionType = {
+//     type:'NEW-POST-TEXT',
+//     text: string
+// }
+// export type UpDateNewTextPostActionType = ReturnType<typeof UpDateNewTextPostAC>
+export type ActionsType = ReturnType<typeof addPostAC> | ReturnType<typeof UpDateNewTextPostAC>
+export const addPostAC = (newPost: string) => {
+    return {
+        type: 'ADD-POST',
+        newPost: newPost
+    } as const
 }
-export type UpDateNewTextPostActionType = {
-    type:'NEW-POST-TEXT',
-    text: string
+export const UpDateNewTextPostAC = (text: string) => {
+    return {
+        type: 'NEW-POST-TEXT',
+        text: text
+    } as const
 }
-export type ActionsType = AddPostActionType | UpDateNewTextPostActionType
 
 let store: StorePropsType = {
     _state: {
@@ -121,8 +135,8 @@ let store: StorePropsType = {
     subscribe(observer: () => void) {
         this._callSubcriber = observer
     },
-    dispatch(action: ActionsType){
-        if(action.type === 'ADD-POST'){
+    dispatch(action: ActionsType) {
+        if (action.type === 'ADD-POST') {
             const newPost = {
                 id: v1(),
                 post: this._state.profilePage.newPostText,
@@ -131,7 +145,7 @@ let store: StorePropsType = {
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = ''
             this._callSubcriber()
-        }else if(action.type === 'NEW-POST-TEXT'){
+        } else if (action.type === 'NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.text
             this._callSubcriber()
         }
