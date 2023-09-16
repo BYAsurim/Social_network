@@ -31,7 +31,7 @@ export type PostPropsTypeArray = {
 export type DialogsPageType = {
     profile: UserPropsType[]
     messages: Array<MessagePropsType>
-
+    newMessageText: string
 }
 export type StatePropsType = {
     profilePage: PostPropsTypeArray
@@ -58,7 +58,10 @@ export type StorePropsType = {
 //     text: string
 // }
 // export type UpDateNewTextPostActionType = ReturnType<typeof UpDateNewTextPostAC>
-export type ActionsType = ReturnType<typeof addPostAC> | ReturnType<typeof UpDateNewTextPostAC>
+export type ActionsType = ReturnType<typeof addPostAC> |
+    ReturnType<typeof UpDateNewTextPostAC> |
+    ReturnType<typeof addMessageAC> |
+    ReturnType<typeof UpDateNewTextMessageAC>
 export const addPostAC = (newPost: string) => {
     return {
         type: 'ADD-POST',
@@ -68,6 +71,18 @@ export const addPostAC = (newPost: string) => {
 export const UpDateNewTextPostAC = (text: string) => {
     return {
         type: 'NEW-POST-TEXT',
+        text: text
+    } as const
+}
+export const addMessageAC = (newText: string) => {
+    return {
+        type: 'ADD-MESSAGE',
+        newText: newText
+    } as const
+}
+export const UpDateNewTextMessageAC = (text: string) => {
+    return {
+        type: 'NEW-MESSAGE-TEXT',
         text: text
     } as const
 }
@@ -100,7 +115,9 @@ let store: StorePropsType = {
                 {id: v1(), message: "У нас есть новости по проекту. Можем обсудить на совещании в 15:00?"},
                 {id: v1(), message: "Спасибо за отзыв! Очень рады, что наш продукт вам понравился."},
                 {id: v1(), message: "Не забудьте записаться на курс по JavaScript!"}
-            ]
+            ],
+            newMessageText: ''
+
         },
         sidebar: {
             friends: [
@@ -148,6 +165,19 @@ let store: StorePropsType = {
         } else if (action.type === 'NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.text
             this._callSubcriber()
+        } else if (action.type === 'ADD-MESSAGE') {
+            const newMessage = {
+                id: v1(),
+                message:this._state.dialogsPage.newMessageText
+            }
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ''
+            this._callSubcriber()
+
+        } else if (action.type === 'NEW-MESSAGE-TEXT'){
+            this._state.dialogsPage.newMessageText = action.text
+            this._callSubcriber()
+
         }
     }
 }

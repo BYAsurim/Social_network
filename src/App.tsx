@@ -20,8 +20,8 @@ type AppPropsType = {
 }
 
 
-const App: React.FC<AppPropsType> = (props) =>{
-const state = props.store.getState()
+const App: React.FC<AppPropsType> = (props) => {
+    const state = props.store.getState()
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -32,6 +32,7 @@ const state = props.store.getState()
 
                     <Route path={'/dialogs'} render={() => <Dialogs data={state.dialogsPage.profile}
                                                                     messages={state.dialogsPage.messages}
+                                                                    dispatch={props.store.dispatch.bind(props.store)}
 
                     />}/>
                     <Route path={'/profile'} render={() => <Profile
