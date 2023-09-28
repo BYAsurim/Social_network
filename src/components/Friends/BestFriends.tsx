@@ -1,9 +1,9 @@
 import React from 'react';
 import s from './BestFriends.module.css'
-import {StatePropsType} from "../../redax/state";
+import {FriendsPropsTypeArray} from "../../redax/store";
 
 type BestFriendsPropsType = {
-    state: StatePropsType
+    friends: FriendsPropsTypeArray
 }
 
 const BestFriends = (props: BestFriendsPropsType) => {
@@ -11,7 +11,7 @@ const BestFriends = (props: BestFriendsPropsType) => {
 
         <div className={s.content}>
             {
-                props.state.sidebar.friends.map(el => {
+                props.friends.friends.map(el => {
                     return (<div className={s.img_text} key={el.id} >
 
                             <img className={s.img}

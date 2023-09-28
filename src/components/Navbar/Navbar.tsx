@@ -2,10 +2,10 @@ import React from 'react';
 import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import BestFriends from "../Friends/BestFriends";
-import {StatePropsType} from "../../redax/state";
+import {FriendsPropsTypeArray} from "../../redax/store";
 
 type NavbarPropsType = {
-    state: StatePropsType
+    friends: FriendsPropsTypeArray
 }
 
 const Navbar = (props:NavbarPropsType) => {
@@ -20,8 +20,7 @@ const Navbar = (props:NavbarPropsType) => {
             <div className={s.item}><NavLink to='/friends' activeClassName={s.activeLink}>Friends</NavLink></div>
             </div>
             <div className={s.friends} >
-
-            <div className={s.item}><NavLink to='/bestfriends'> <BestFriends state={props.state} /> </NavLink></div>
+            <div className={s.item}><NavLink to='/bestfriends'> <BestFriends friends={props.friends} /> </NavLink></div>
             </div>
 
 

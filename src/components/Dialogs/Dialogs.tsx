@@ -2,12 +2,15 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {ActionsType, DialogsPageType,} from "../../redax/state";
-import {addMessageAC, UpDateNewTextMessageAC} from "../../redax/dialogsReduser";
+import {DialogsPageType} from "../../redax/store";
+
 
 export type DialogsPropsType = {
-    dialogsPage: DialogsPageType
-    dispatch: (action: ActionsType) => void
+    // dialogsPage: DialogsPageType
+    // dispatch: (action: ActionsType) => void
+    onAddMessage:()=>void
+    onChangeInputMessage:(newText:string)=> void
+    state: DialogsPageType
 }
 
 
@@ -15,22 +18,19 @@ const Dialogs = (props: DialogsPropsType) => {
 
 
     const addMessageHandler = () => {
-        props.dispatch(addMessageAC())
+        props.onAddMessage()
 
     }
 
     const changeInputMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        debugger
         let newText = e.currentTarget.value
         if (e.currentTarget) {
-            props.dispatch(UpDateNewTextMessageAC(newText))
+           props.onChangeInputMessage(newText)
         }
 
     }
-
-    const dailogsElements = props.dialogsPage.profile.map(el => <DialogItem key={el.id} id={el.id} name={el.name}/>)
-    const messageElements = props.dialogsPage.messages.map(el => <Message key={el.id} id={el.id} message={el.message}/>)
-
+    const dailogsElements = props.state.profile.map(el => <DialogItem key={el.id} id={el.id} name={el.name}/>)
+    const messageElements = props.state.messages.map(el => <Message key={el.id} id={el.id} message={el.message}/>)
 
     return (
         <div className={s.dialogs}>
@@ -46,7 +46,7 @@ const Dialogs = (props: DialogsPropsType) => {
             <div></div>
             <div className={s.inputButton}>
                 <div>
-                    <input value={props.dialogsPage.newMessageText} className={s.inputField}
+                    <input value={props.state.newMessageText} className={s.inputField}
                            onChange={changeInputMessageHandler}/>
                 </div>
                 <div>

@@ -1,12 +1,13 @@
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPosts from "./MyPosts/MyPosts";
-import {ActionsType, PostPropsTypeArray} from "../../redax/state";
+import MyPostsConteiner from "./MyPosts/MyPostsConteiner";
+import {AppStore} from "../../redax/redux-store";
 
 
 type ProfilePropsType = {
-    profilePage: PostPropsTypeArray
-    dispatch: (action: ActionsType) => void
+    // profilePage: PostPropsTypeArray
+    // dispatch: (action: ActionsType) => void
+    store:AppStore
 }
 
 
@@ -16,9 +17,14 @@ const Profile = (props: ProfilePropsType) => {
         <div>
 
             <ProfileInfo/>
-            <MyPosts profilePage={props.profilePage}
-                     dispatch={props.dispatch}
+            {/*<MyPosts profilePage={props.profilePage}*/}
+            {/*         dispatch={props.dispatch}*/}
 
+            {/*/>*/}
+            <MyPostsConteiner
+                // profilePage={props.profilePage}
+                //               dispatch={props.dispatch}
+                store={props.store}
             />
 
 

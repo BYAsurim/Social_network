@@ -1,13 +1,14 @@
 import React from 'react';
 import s from "./MyPosts.module.css";
-import Post from "../Posts/Post";
-import {ActionsType, PostPropsTypeArray,} from "../../../redax/state";
-import {UpDateNewTextPostAC, addPostAC} from "../../../redax/profileReduser";
+import Post from "./Posts/Post";
+import {PostPropsTypeArray} from "../../../redax/store";
+
 
 
 type MyPostsPropsType = {
+    onPostChange: (text:string)=> void
+    addPost: ()=>void
     profilePage: PostPropsTypeArray
-    dispatch: (action: ActionsType) => void
 }
 
 
@@ -15,16 +16,13 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     const newPostElement = React.createRef<HTMLTextAreaElement>()
 
-    const addPost = () => {
-        if (newPostElement.current) {
-            props.dispatch(addPostAC(newPostElement.current.value))
-            newPostElement.current.value = ''
-        }
+    const onAddPost = () => {
+       props.addPost()
     }
     const changeInputHandler = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value;
-            props.dispatch(UpDateNewTextPostAC(text))
+            props.onPostChange(text)
         }
     }
 
@@ -37,7 +35,7 @@ const MyPosts = (props: MyPostsPropsType) => {
                       value={props.profilePage.newPostText}></textarea>
 
             <div className={s.button}>
-                <button onClick={addPost}>Add post</button>
+                <button onClick={onAddPost}>Add post</button>
             </div>
             <div className={s.posts}>
                 {
