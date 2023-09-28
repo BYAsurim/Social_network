@@ -42,8 +42,6 @@ export type StatePropsType = {
 }
 export type StorePropsType = {
     _state: StatePropsType
-    // addPost: () => void
-    // upDateNewPostText: (text: string) => void
     subscribe: (observer: () => void) => void
     getState: () => StatePropsType
     _callSubcriber: () => void
