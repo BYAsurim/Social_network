@@ -7,8 +7,6 @@ import {ActionsType, PostPropsTypeArray} from "../../redax/state";
 type ProfilePropsType = {
     profilePage: PostPropsTypeArray
     dispatch: (action: ActionsType) => void
-    // addPost: ()=>void
-    // upDateNewPostText: (text:string)=> void
 }
 
 
@@ -20,8 +18,7 @@ const Profile = (props: ProfilePropsType) => {
             <ProfileInfo/>
             <MyPosts profilePage={props.profilePage}
                      dispatch={props.dispatch}
-                // addPost={props.addPost}
-                // upDateNewPostText={props.upDateNewPostText}
+
             />
 
 

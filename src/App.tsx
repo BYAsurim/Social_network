@@ -14,9 +14,6 @@ import Friends from "./components/Friends/Friends";
 
 type AppPropsType = {
     store: StorePropsType
-    // addPost: () => void
-    // upDateNewPostText:(text:string)=> void
-
 }
 
 
@@ -30,16 +27,12 @@ const App: React.FC<AppPropsType> = (props) => {
                 <div className={'app-wrapper-content'}>
 
 
-                    <Route path={'/dialogs'} render={() => <Dialogs data={state.dialogsPage.profile}
-                                                                    messages={state.dialogsPage.messages}
+                    <Route path={'/dialogs'} render={() => <Dialogs dialogsPage={props.store._state.dialogsPage}
                                                                     dispatch={props.store.dispatch.bind(props.store)}
 
                     />}/>
                     <Route path={'/profile'} render={() => <Profile
-                        // addPost={props.store.addPost.bind(props.store)}
                         dispatch={props.store.dispatch.bind(props.store)}
-
-                        // upDateNewPostText={props.store.upDateNewPostText.bind(props.store)}
                         profilePage={state.profilePage}
 
                     />}/>

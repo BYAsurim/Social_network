@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {addPostAC, profileReduser, UpDateNewTextPostAC} from "./profileReduser";
+import {addMessageAC, dialogsReduser, UpDateNewTextMessageAC} from "./dialogsReduser";
 
 
 export let rerenderThree = () => {
@@ -48,44 +50,10 @@ export type StorePropsType = {
     dispatch: (action: ActionsType) => void
 }
 
-// export type AddPostActionType = {
-//     type:'ADD-POST',
-//     newPost: string
-// }
-// export type AddPostActionType = ReturnType<typeof addPostAC>
-// export type UpDateNewTextPostActionType = {
-//     type:'NEW-POST-TEXT',
-//     text: string
-// }
-// export type UpDateNewTextPostActionType = ReturnType<typeof UpDateNewTextPostAC>
 export type ActionsType = ReturnType<typeof addPostAC> |
     ReturnType<typeof UpDateNewTextPostAC> |
     ReturnType<typeof addMessageAC> |
     ReturnType<typeof UpDateNewTextMessageAC>
-export const addPostAC = (newPost: string) => {
-    return {
-        type: 'ADD-POST',
-        newPost: newPost
-    } as const
-}
-export const UpDateNewTextPostAC = (text: string) => {
-    return {
-        type: 'NEW-POST-TEXT',
-        text: text
-    } as const
-}
-export const addMessageAC = (newText: string) => {
-    return {
-        type: 'ADD-MESSAGE',
-        newText: newText
-    } as const
-}
-export const UpDateNewTextMessageAC = (text: string) => {
-    return {
-        type: 'NEW-MESSAGE-TEXT',
-        text: text
-    } as const
-}
 
 let store: StorePropsType = {
     _state: {
@@ -133,108 +101,17 @@ let store: StorePropsType = {
     _callSubcriber() {
         console.log('State changed')
     },
-    // addPost() {
-    //     const newPost = {
-    //         id: v1(),
-    //         post: this._state.profilePage.newPostText,
-    //         likecount: 0
-    //     }
-    //     this._state.profilePage.posts.push(newPost)
-    //     this._state.profilePage.newPostText = ''
-    //     this._callSubcriber()
-    //
-    // },
-    // upDateNewPostText(text: string) {
-    //     this._state.profilePage.newPostText = text
-    //     this._callSubcriber()
-    // },
 
     subscribe(observer: () => void) {
         this._callSubcriber = observer
     },
     dispatch(action: ActionsType) {
-        if (action.type === 'ADD-POST') {
-            const newPost = {
-                id: v1(),
-                post: this._state.profilePage.newPostText,
-                likecount: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubcriber()
-        } else if (action.type === 'NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.text
-            this._callSubcriber()
-        } else if (action.type === 'ADD-MESSAGE') {
-            const newMessage = {
-                id: v1(),
-                message:this._state.dialogsPage.newMessageText
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ''
-            this._callSubcriber()
+        this._state.profilePage = profileReduser(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReduser(this._state.dialogsPage, action)
+        this._callSubcriber()
 
-        } else if (action.type === 'NEW-MESSAGE-TEXT'){
-            this._state.dialogsPage.newMessageText = action.text
-            this._callSubcriber()
 
-        }
     }
 }
-
-// let state: StatePropsType = {
-//     profilePage: {
-//         posts: [
-//             {id: v1(), post: "Сегодня замечательный день!", likecount: 10},
-//             {id: v1(), post: "Наконец-то закончил проект!", likecount: 25},
-//             {id: v1(), post: "Как же я люблю путешествовать!", likecount: 15},
-//             {id: v1(), post: "Вчера был на концерте своей любимой группы!", likecount: 30},
-//             {id: v1(), post: "Новый курс по JavaScript на IT-KAMASUTRA просто потрясающий!", likecount: 20}
-//         ],
-//         newPostText: ''
-//
-//     },
-//     dialogsPage: {
-//         profile: [
-//             {id: v1(), name: "Sasha"},
-//             {id: v1(), name: "Valera"},
-//             {id: v1(), name: "Dima"},
-//             {id: v1(), name: "Lena"},
-//             {id: v1(), name: "Emily"},
-//             {id: v1(), name: "Frank"}
-//         ],
-//         messages: [
-//             {id: v1(), message: "Привет! Как дела?"},
-//             {id: v1(), message: "Как прошло твоё выходное?"},
-//             {id: v1(), message: "У нас есть новости по проекту. Можем обсудить на совещании в 15:00?"},
-//             {id: v1(), message: "Спасибо за отзыв! Очень рады, что наш продукт вам понравился."},
-//             {id: v1(), message: "Не забудьте записаться на курс по JavaScript!"}
-//         ]
-//     },
-//     sidebar: {
-//         friends:[
-//             { id: v1(), name: 'Ivan' },
-//             { id: v1(), name: 'Elena' },
-//             { id: v1(), name: 'Katya' }
-//         ]
-//     }
-//
-// }
-
-
-// export const addPost = ()=>{
-//     const newPost = {id: v1(), post:state.profilePage.newPostText , likecount: 0}
-//     state.profilePage.posts.push(newPost)
-//     state.profilePage.newPostText = ''
-//     rerenderThree()
-//
-// }
-// export const upDateNewPostText = (text:string)=>{
-//     state.profilePage.newPostText = text
-//     rerenderThree()
-// }
-// export const subscribe = (observer: ()=>void)=>{
-//     rerenderThree = observer
-// }
 
 export default store

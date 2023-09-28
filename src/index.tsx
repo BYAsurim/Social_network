@@ -6,9 +6,7 @@ import App from './App';
 import store from "./redax/state";
 
 
-
-
-export const rerenderThree = ()=>{
+export const rerenderThree = () => {
     ReactDOM.render(
         <App store={store}
 

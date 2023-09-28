@@ -1,52 +1,53 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
-
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {ActionsType, addMessageAC, MessagePropsType, UpDateNewTextMessageAC, UserPropsType} from "../../redax/state";
+import {ActionsType, DialogsPageType,} from "../../redax/state";
+import {addMessageAC, UpDateNewTextMessageAC} from "../../redax/dialogsReduser";
 
 export type DialogsPropsType = {
-    data: UserPropsType[]
-    messages: Array<MessagePropsType>
+    dialogsPage: DialogsPageType
     dispatch: (action: ActionsType) => void
 }
 
 
 const Dialogs = (props: DialogsPropsType) => {
 
-    const newMessageElement = React.createRef<HTMLInputElement>()
 
     const addMessageHandler = () => {
-        if (newMessageElement.current) {
-            let text = newMessageElement.current.value
-           props.dispatch(addMessageAC(text))
-            newMessageElement.current.value = ''
-        }
+        props.dispatch(addMessageAC())
+
     }
-    const changeInputMessageHandler = ()=>{
-        if(newMessageElement.current){
-           let  text = newMessageElement.current.value
-            props.dispatch(UpDateNewTextMessageAC(text))
+
+    const changeInputMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        debugger
+        let newText = e.currentTarget.value
+        if (e.currentTarget) {
+            props.dispatch(UpDateNewTextMessageAC(newText))
         }
 
     }
+
+    const dailogsElements = props.dialogsPage.profile.map(el => <DialogItem key={el.id} id={el.id} name={el.name}/>)
+    const messageElements = props.dialogsPage.messages.map(el => <Message key={el.id} id={el.id} message={el.message}/>)
 
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItem}>
-                {props.data.map(el => <DialogItem key={el.id} id={el.id} name={el.name}/>)}
+                {dailogsElements}
             </div>
             <div className={s.messages}>
                 {
-                    props.messages.map(el => <Message key={el.id} id={el.id} message={el.message}/>)
+                    messageElements
                 }
 
             </div>
-                    <div> </div>
+            <div></div>
             <div className={s.inputButton}>
                 <div>
-                    <input ref={newMessageElement} className={s.inputField} onChange={changeInputMessageHandler}/>
+                    <input value={props.dialogsPage.newMessageText} className={s.inputField}
+                           onChange={changeInputMessageHandler}/>
                 </div>
                 <div>
                     <button onClick={addMessageHandler} className={s.sendButton}>send</button>
