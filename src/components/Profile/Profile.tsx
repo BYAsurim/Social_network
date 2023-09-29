@@ -7,7 +7,7 @@ import {AppStore} from "../../redax/redux-store";
 type ProfilePropsType = {
     // profilePage: PostPropsTypeArray
     // dispatch: (action: ActionsType) => void
-    store:AppStore
+   // store:AppStore
 }
 
 
@@ -24,7 +24,7 @@ const Profile = (props: ProfilePropsType) => {
             <MyPostsConteiner
                 // profilePage={props.profilePage}
                 //               dispatch={props.dispatch}
-                store={props.store}
+                // store={props.store}
             />
 
 
