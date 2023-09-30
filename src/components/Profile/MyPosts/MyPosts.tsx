@@ -1,14 +1,15 @@
 import React from 'react';
 import s from "./MyPosts.module.css";
 import Post from "./Posts/Post";
-import {PostPropsTypeArray} from "../../../redax/store";
+
+import {AppStateType} from "../../../redax/redux-store";
 
 
 
 type MyPostsPropsType = {
     onPostChange: (text:string)=> void
     addPost: ()=>void
-    profilePage: PostPropsTypeArray
+    profilePage: AppStateType
 }
 
 
@@ -32,14 +33,14 @@ const MyPosts = (props: MyPostsPropsType) => {
                 My posts
             </div>
             <textarea className={s.input} ref={newPostElement} onChange={changeInputHandler}
-                      value={props.profilePage.newPostText}></textarea>
+                      value={props.profilePage.profileReduser.newPostText}></textarea>
 
             <div className={s.button}>
                 <button onClick={onAddPost}>Add post</button>
             </div>
             <div className={s.posts}>
                 {
-                    props.profilePage.posts.map((el) => {
+                    props.profilePage.profileReduser.posts.map((el) => {
                         return (
                             <Post key={el.id} id={el.id} post={el.post} likecount={el.likecount}/>
                         )

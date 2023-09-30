@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./Post.module.css";
-import {PostPropsType} from "../../../../redax/store";
+import {PostPropsType} from "../../../../redax/profileReduser";
+
 
 
 

@@ -1,5 +1,13 @@
 import {v1} from "uuid";
-import {ActionsType, DialogsPageType} from "./store";
+import {ActionsType, MessagePropsType, UserPropsType} from "./store";
+
+export type DialogsPageType = {
+    profile: UserPropsType[]
+    messages: Array<MessagePropsType>
+    newMessageText: string
+}
+
+
 
 export const addMessageAC = (newText?: string) => {
     return {
@@ -13,7 +21,7 @@ export const UpDateNewTextMessageAC = (text: string) => {
         text: text
     } as const
 }
-let initialState = {
+let initialState:DialogsPageType = {
     profile: [
         {id: v1(), name: "Sasha"},
         {id: v1(), name: "Valera"},
@@ -30,7 +38,6 @@ let initialState = {
         {id: v1(), message: "Не забудьте записаться на курс по JavaScript!"}
     ],
     newMessageText: ''
-
 }
 
 export const dialogsReduser = (state = initialState, action: ActionsType): DialogsPageType => {
@@ -43,11 +50,11 @@ export const dialogsReduser = (state = initialState, action: ActionsType): Dialo
             }
             state.messages.push(newMessage)
             state.newMessageText = ''
-            return state
+            return {...state}
         }
         case "NEW-MESSAGE-TEXT":{
             state.newMessageText = action.text
-            return state
+            return {...state}
         }
         default: return state
 

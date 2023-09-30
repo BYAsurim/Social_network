@@ -9,7 +9,8 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Friends from "./components/Friends/Friends";
 import DialogsContainer from "./components/Dialogs/DialogsConteiner";
-import StoreContext from "./storeContext";
+import store from "./redax/redux-store";
+
 
 
 type AppPropsType = {
@@ -23,13 +24,9 @@ const App: React.FC<AppPropsType> = (props) => {
     return (
         <div className='app-wrapper'>
             <Header/>
-            <StoreContext.Consumer>
-                {
-                    (store) => {
+           <Navbar friends={store.getState().navbarReduser}/>
 
-                        return <Navbar friends={store.getState().navbarReduser}/>
-                    }}
-            </StoreContext.Consumer>
+
             <div className={'app-wrapper-content'}>
 
                 <Route path={'/dialogs'} render={() => <DialogsContainer

@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionsType, PostPropsTypeArray} from "./store";
+import {ActionsType} from "./store";
 
 export const addPostAC = (newPost?: string) => {
     return {
@@ -13,7 +13,13 @@ export const UpDateNewTextPostAC = (text: string) => {
         text: text
     } as const
 }
+export type PostPropsType = {
+    id: string
+    post: string;
+    likecount: number;
+}
 
+export  type IninitialStateType = typeof initialState
 let initialState = {
     posts: [
         {id: v1(), post: "Сегодня замечательный день!", likecount: 10},
@@ -21,11 +27,11 @@ let initialState = {
         {id: v1(), post: "Как же я люблю путешествовать!", likecount: 15},
         {id: v1(), post: "Вчера был на концерте своей любимой группы!", likecount: 30},
         {id: v1(), post: "Новый курс по JavaScript на IT-KAMASUTRA просто потрясающий!", likecount: 20}
-    ],
-    newPostText: ''
+    ] as Array<PostPropsType>,
+    newPostText: '',
 }
 
-export const profileReduser = (state = initialState, action: ActionsType): PostPropsTypeArray => {
+export const profileReduser = (state:IninitialStateType = initialState, action: ActionsType):IninitialStateType => {
     switch (action.type) {
         case "ADD-POST": {
             const newPost = {
@@ -35,11 +41,11 @@ export const profileReduser = (state = initialState, action: ActionsType): PostP
             }
             state.posts.push(newPost)
             state.newPostText = ''
-            return state
+            return {...state}
         }
         case "NEW-POST-TEXT": {
             state.newPostText = action.text
-            return state
+            return {...state}
         }
         default: return state
     }

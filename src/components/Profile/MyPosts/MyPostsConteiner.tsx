@@ -1,43 +1,68 @@
 import React from 'react';
 import {addPostAC, UpDateNewTextPostAC} from "../../../redax/profileReduser";
 import MyPosts from "./MyPosts";
-import StoreContext from "../../../storeContext";
+import {AppStateType} from "../../../redax/redux-store";
+import {Dispatch} from "redux";
+import {connect} from "react-redux";
 
 
-type MyPostsPropsType = {
-    // profilePage: PostPropsTypeArray
-    // dispatch: (action: ActionsType) => void
-    // store:AppStore
+
+
+// type MyPostsPropsType = {
+//     // profilePage: PostPropsTypeArray
+//     // dispatch: (action: ActionsType) => void
+//     // store:AppStore
+// }
+
+// const MyPostsContainer = (props: MyPostsPropsType) => {
+//     return (
+//         <StoreContext.Consumer>{
+//             (store) => {
+//
+//                 const addPost = () => {
+//                     store.dispatch(addPostAC())
+//                 }
+//
+//                 const onPostChange = (text: string) => {
+//                     store.dispatch(UpDateNewTextPostAC(text))
+//                 }
+//
+//
+//                 return <div>
+//                     <MyPosts
+//                         onPostChange={onPostChange}
+//                         addPost={addPost}
+//                         profilePage={store.getState().profileReduser}
+//                     />
+//                 </div>
+//             }
+//
+//         }</StoreContext.Consumer>
+//     );
+// };
+
+type mapDispatchToPropsType = {
+    addPost: ()=>void
+    onPostChange: (text: string)=> void
 }
 
+let mapStateToProps =(state:AppStateType)=>{
 
-const MyPostsContainer = (props: MyPostsPropsType) => {
+    return{
+        profilePage: state
+    }
+}
+let mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType=>{
+    return{
+        addPost:()=> {
+            dispatch(addPostAC())
+        } ,
+        onPostChange: (text: string)=> {
+            dispatch(UpDateNewTextPostAC(text))
+        }
 
-
-    return (
-        <StoreContext.Consumer>{
-            (store) => {
-
-                const addPost = () => {
-                    store.dispatch(addPostAC())
-                }
-
-                const onPostChange = (text: string) => {
-                    store.dispatch(UpDateNewTextPostAC(text))
-                }
-
-
-                return <div>
-                    <MyPosts
-                        onPostChange={onPostChange}
-                        addPost={addPost}
-                        profilePage={store.getState().profileReduser}
-                    />
-                </div>
-            }
-
-        }</StoreContext.Consumer>
-    );
-};
+    }
+}
+const MyPostsContainer = connect(mapStateToProps,mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;

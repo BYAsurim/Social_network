@@ -6,7 +6,7 @@ import {addMessageAC, dialogsReduser, UpDateNewTextMessageAC} from "./dialogsRed
 export let rerenderThree = () => {
     console.log('rerenderThree')
 }
-export type PostPropsType = {
+ type PostPropsType = {
     id: string
     post: string;
     likecount: number;
@@ -52,6 +52,7 @@ export type ActionsType = ReturnType<typeof addPostAC> |
     ReturnType<typeof UpDateNewTextPostAC> |
     ReturnType<typeof addMessageAC> |
     ReturnType<typeof UpDateNewTextMessageAC>
+
 
 let store: StorePropsType = {
     _state: {
