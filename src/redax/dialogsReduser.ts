@@ -48,9 +48,9 @@ export const dialogsReduser = (state = initialState, action: ActionsType): Dialo
                 id: v1(),
                 message: state.newMessageText
             }
-            state.messages.push(newMessage)
-            state.newMessageText = ''
-            return {...state}
+            // state.messages.push(newMessage)
+            // state.newMessageText = ''
+            return {...state, messages:[...state.messages, newMessage], newMessageText: ''}
         }
         case "NEW-MESSAGE-TEXT":{
             state.newMessageText = action.text

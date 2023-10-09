@@ -7,17 +7,13 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 
-
-
-export const rerenderThree = () => {
-    ReactDOM.render(
-        <BrowserRouter>
+ReactDOM.render(
+    <BrowserRouter>
         <Provider store={store}>
-        <App />
+            <App/>
         </Provider>
-        </BrowserRouter>,
-        document.getElementById('root')
-    );
-}
-rerenderThree()
-store.subscribe(rerenderThree)
+    </BrowserRouter>,
+    document.getElementById('root')
+);
+
+// store.subscribe(rerenderThree)

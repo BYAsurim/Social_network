@@ -47,11 +47,11 @@ type mapDispatchToPropsType = {
 }
 
 let mapStateToProps =(state:AppStateType)=>{
-
     return{
         profilePage: state
     }
 }
+
 let mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType=>{
     return{
         addPost:()=> {

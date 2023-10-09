@@ -39,9 +39,10 @@ export const profileReduser = (state:IninitialStateType = initialState, action: 
                 post: state.newPostText,
                 likecount: 0
             }
-            state.posts.push(newPost)
-            state.newPostText = ''
-            return {...state}
+            let stateCopy = {...state, posts: [...state.posts, newPost]}
+            // stateCopy.posts.push(newPost)
+            stateCopy.newPostText = ''
+            return stateCopy
         }
         case "NEW-POST-TEXT": {
             state.newPostText = action.text
