@@ -10,6 +10,7 @@ import Settings from "./components/Settings/Settings";
 import Friends from "./components/Friends/Friends";
 import DialogsContainer from "./components/Dialogs/DialogsConteiner";
 import store from "./redax/redux-store";
+import UsersContainer from "./components/Users/UsersConteiner";
 
 
 
@@ -36,6 +37,7 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Route path={'/profile'} render={() => <Profile
                     // store={props.store}
                 />}/>
+                <Route path={'/users'} render={()=><UsersContainer/>}/>
                 <Route path={'/news'} component={News}/>
                 <Route path={'/music'} component={Music}/>
                 <Route path={'/settings'} component={Settings}/>
