@@ -1,0 +1,48 @@
+.title{
+padding-left: 1rem;
+color: darkblue;
+}
+.wrapper {
+    display: flex;
+    padding: 1rem 1rem;
+
+}
+.imgAndButton{
+    display: flex;
+    width: 8rem;
+    align-items: center;
+    flex-direction: column;
+}
+
+.photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    padding-bottom: 0.2rem;
+}
+
+.content {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 1rem;
+    width: 30rem;
+    padding-left: 1em;
+    justify-content: space-between;
+
+}
+.nameAndStatus{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.3rem 1rem;
+}
+.location{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0.3rem 1rem;
+}
+.button{
+}
