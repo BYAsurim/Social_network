@@ -10,7 +10,7 @@ import Settings from "./components/Settings/Settings";
 import Friends from "./components/Friends/Friends";
 import DialogsContainer from "./components/Dialogs/DialogsConteiner";
 import store from "./redax/redux-store";
-import UsersContainer from "./components/Users/UsersConteiner";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 
