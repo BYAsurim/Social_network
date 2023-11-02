@@ -11,13 +11,7 @@ type PhotosType = {
     small: string,
     large: string
 }
-//export type UsersPageType = {
-//     id: string,
-//     followed: boolean,
-//     fullName: string,
-//     status: string,
-//     location: LocationType,
-// }
+
 type LocationType = {
     city: string,
     country: string
@@ -26,14 +20,16 @@ type ActionsType = ReturnType<typeof FollowAC> |
     ReturnType<typeof UnFollowAC> |
     ReturnType<typeof SetUsersAC> |
     ReturnType<typeof SetCurrentPageAC>|
-    ReturnType<typeof SetTotalUsersCountAC>
+    ReturnType<typeof SetTotalUsersCountAC>|
+    ReturnType<typeof ToggleIsFetchingAC>
 
 export  type IninitialStateType = typeof initialState
 let initialState = {
     users: [] as Array<UsersPageType>,
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 export const FollowAC = (id: number) => {
     return {
@@ -65,6 +61,12 @@ export const SetTotalUsersCountAC = (count: number) => {
         count
     } as const
 }
+export const ToggleIsFetchingAC = (isFetchng:boolean) => {
+    return {
+        type: 'SET-TOGGLE-IS-FETCHING',
+        isFetchng
+    } as const
+}
 
 export const usersReduser = (state: IninitialStateType = initialState, action: ActionsType): IninitialStateType => {
     switch (action.type) {
@@ -94,6 +96,11 @@ export const usersReduser = (state: IninitialStateType = initialState, action: A
         case 'SET-TOTAL-USERS-COUNT': {
             return {
                 ...state, totalUsersCount: action.count
+            }
+        }
+        case 'SET-TOGGLE-IS-FETCHING': {
+            return {
+                ...state, isFetching: action.isFetchng
             }
         }
 
