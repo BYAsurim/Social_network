@@ -2,6 +2,7 @@ import React from 'react';
 import s from "./users.module.css";
 import photo from "../../images/images.jpg";
 import {UsersPageType} from "../../redax/usersReduser";
+import { NavLink } from 'react-router-dom';
 
 
 type UsersPropsType =  {
@@ -13,7 +14,7 @@ type UsersPropsType =  {
     follow: (id: number) => void
     unFollow: (id: number) => void
 }
-const Users: React.FC<UsersPropsType> = ({
+export const Users: React.FC<UsersPropsType> = ({
                                               users,
                                               pageSize,
                                               totalUsersCount,
@@ -49,7 +50,9 @@ const Users: React.FC<UsersPropsType> = ({
             {users.map(u => <div key={u.id} className={s.wrapper}>
                 <div className={s.imgAndButton}>
                     <div>
+                        <NavLink to={`/profile/${u.id}`}>
                         <img className={s.photo} src={u.photos.small === null ? photo : u.photos.small} alt="img"/>
+                        </NavLink>
                     </div>
                     <div>
                         {
@@ -82,4 +85,4 @@ const Users: React.FC<UsersPropsType> = ({
     );
 };
 
-export default Users;
+// export default Users;

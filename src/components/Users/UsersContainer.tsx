@@ -10,7 +10,7 @@ import {
     UnFollowAC,
     UsersPageType
 } from "../../redax/usersReduser";
-import Users from "./Users";
+import {Users} from "./Users";
 import axios from "axios";
 import Preloader from "../common/preloader/Preloader";
 

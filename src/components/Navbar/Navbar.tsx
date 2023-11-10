@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import BestFriends from "../Friends/BestFriends";
-import {FriendsPropsTypeArray} from "../../redax/store";
+import {FriendsPropsTypeArray} from "../../redax/navbarReduser";
 
 type NavbarPropsType = {
     friends: FriendsPropsTypeArray

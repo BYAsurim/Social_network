@@ -16,5 +16,7 @@ export type AppStateType = ReturnType <typeof rootRedusers>
 
 let store = createStore(rootRedusers)
 
+//@ts-ignore
+window.store = store
 
 export default store

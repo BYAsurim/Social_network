@@ -1,5 +1,13 @@
 import {v1} from "uuid";
-import {ActionsType, FriendsPropsTypeArray} from "./store";
+import {ActionsType} from "./dialogsReduser";
+
+export type FriendsPropsType = {
+    id: string
+    name: string
+}
+export type FriendsPropsTypeArray = {
+    friends: Array<FriendsPropsType>
+}
 
 let initialState = {
     friends: [

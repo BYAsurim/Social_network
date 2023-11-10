@@ -1,13 +1,25 @@
 import {v1} from "uuid";
-import {ActionsType, MessagePropsType, UserPropsType} from "./store";
+import {addPostAC, setUserProfileAC, UpDateNewTextPostAC} from "./profileReduser";
 
 export type DialogsPageType = {
     profile: UserPropsType[]
     messages: Array<MessagePropsType>
     newMessageText: string
 }
+export type MessagePropsType = {
+    id: string
+    message: string
+}
+export type UserPropsType = {
+    id: string
+    name: string
+}
 
-
+export type ActionsType = ReturnType<typeof addPostAC> |
+    ReturnType<typeof UpDateNewTextPostAC> |
+    ReturnType<typeof addMessageAC> |
+    ReturnType<typeof UpDateNewTextMessageAC>|
+    ReturnType<typeof setUserProfileAC>
 
 export const addMessageAC = (newText?: string) => {
     return {
