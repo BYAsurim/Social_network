@@ -2,34 +2,59 @@ import React from 'react';
 import s from "./users.module.css";
 import photo from "../../images/images.jpg";
 import {UsersPageType} from "../../redax/usersReduser";
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+import axios from "axios";
 
 
-type UsersPropsType =  {
+type UsersPropsType = {
     users: Array<UsersPageType>
-    changeCurrentPageHandler: (currentPage: number)=>void
+    changeCurrentPageHandler: (currentPage: number) => void
     pageSize: number
     totalUsersCount: number
-    currentPage:number
+    currentPage: number
     follow: (id: number) => void
     unFollow: (id: number) => void
 }
 export const Users: React.FC<UsersPropsType> = ({
-                                              users,
-                                              pageSize,
-                                              totalUsersCount,
-                                              currentPage,
-                                              follow,
-                                              unFollow,
-                                              changeCurrentPageHandler
+                                                    users,
+                                                    pageSize,
+                                                    totalUsersCount,
+                                                    currentPage,
+                                                    follow,
+                                                    unFollow,
+                                                    changeCurrentPageHandler
 
-                                          }) => {
-
-
+                                                }) => {
     const pagesCount = Math.ceil(totalUsersCount / pageSize)
     const pages = []
     for (let i = 1; i <= pagesCount && i <= 10; i++) {
         pages.push(i)
+    }
+    const instance = axios.create({
+        baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+        withCredentials: true,
+        headers: {
+            'API-KEY': 'e7e3f008-e2dc-4435-835d-1184d4097cbd'
+        }
+    })
+
+    const unFollowHandler = (id: number) => {
+        instance.delete(`follow/${id}`,)
+            .then((res) => {
+                if (res.data.resultCode === 0) {
+                    unFollow(id)
+                }
+            })
+    }
+
+    const followHandler = (id: number) => {
+        instance.post(`follow/${id}`, {})
+            .then((res) => {
+                if (res.data.resultCode === 0) {
+                    follow(id)
+                }
+            })
+
     }
 
     return (
@@ -51,17 +76,17 @@ export const Users: React.FC<UsersPropsType> = ({
                 <div className={s.imgAndButton}>
                     <div>
                         <NavLink to={`/profile/${u.id}`}>
-                        <img className={s.photo} src={u.photos.small === null ? photo : u.photos.small} alt="img"/>
+                            <img className={s.photo} src={u.photos.small === null ? photo : u.photos.small} alt="img"/>
                         </NavLink>
                     </div>
                     <div>
                         {
                             u.followed ?
                                 <button onClick={() => {
-                                    unFollow(u.id)
+                                    unFollowHandler(u.id)
                                 }}>UnFollow</button> :
                                 <button onClick={() => {
-                                    follow(u.id)
+                                    followHandler(u.id)
                                 }}>Follow</button>
                         }
 

@@ -11,8 +11,8 @@ import {
     UsersPageType
 } from "../../redax/usersReduser";
 import {Users} from "./Users";
-import axios from "axios";
 import Preloader from "../common/preloader/Preloader";
+import {getUsers} from "../../api/api";
 
 
 type MapStateToPropsType = {
@@ -31,26 +31,34 @@ type mapDispatchToPropsType = {
     setIsFetching: (isFetching: boolean) => void
 
 }
+// const instance = axios.create({
+//     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+//     withCredentials: true,
+//     headers: {
+//         'API-KEY': 'e7e3f008-e2dc-4435-835d-1184d4097cbd'
+//     }
+// })
+
 export type UsersPropsType = MapStateToPropsType & mapDispatchToPropsType
 
 class UsersContainer extends React.Component<UsersPropsType, Array<UsersPageType>> {
     componentDidMount() {
         this.props.setIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        getUsers(this.props.currentPage, this.props.pageSize)
             .then((res) => {
                 this.props.setIsFetching(false)
-                this.props.setUsers(res.data.items)
-                this.props.setTotalUsersCount(res.data.totalCount)
+                this.props.setUsers(res.items)
+                this.props.setTotalUsersCount(res.totalCount)
             })
     }
 
     changeCurrentPageHandler = (currentPage: number) => {
         this.props.setIsFetching(true)
         this.props.setCurrentPage(currentPage)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`)
+        getUsers(currentPage, this.props.pageSize)
             .then((res) => {
                 this.props.setIsFetching(false)
-                this.props.setUsers(res.data.items)
+                this.props.setUsers(res.items)
             })
     }
 
@@ -74,7 +82,7 @@ class UsersContainer extends React.Component<UsersPropsType, Array<UsersPageType
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return (
-        state.usersReduser
+        state.usersReducer
     )
 }
 

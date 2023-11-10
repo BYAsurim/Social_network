@@ -23,7 +23,7 @@ type ActionsType = ReturnType<typeof FollowAC> |
     ReturnType<typeof SetTotalUsersCountAC>|
     ReturnType<typeof ToggleIsFetchingAC>
 
-export  type IninitialStateType = typeof initialState
+export  type InitialStateType = typeof initialState
 let initialState = {
     users: [] as Array<UsersPageType>,
     pageSize: 10,
@@ -61,14 +61,14 @@ export const SetTotalUsersCountAC = (count: number) => {
         count
     } as const
 }
-export const ToggleIsFetchingAC = (isFetchng:boolean) => {
+export const ToggleIsFetchingAC = (isFetching:boolean) => {
     return {
         type: 'SET-TOGGLE-IS-FETCHING',
-        isFetchng
+        isFetching
     } as const
 }
 
-export const usersReduser = (state: IninitialStateType = initialState, action: ActionsType): IninitialStateType => {
+export const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'FOLLOW': {
 
@@ -100,7 +100,7 @@ export const usersReduser = (state: IninitialStateType = initialState, action: A
         }
         case 'SET-TOGGLE-IS-FETCHING': {
             return {
-                ...state, isFetching: action.isFetchng
+                ...state, isFetching: action.isFetching
             }
         }
 
