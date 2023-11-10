@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionsType} from "./store";
+import {ActionsType} from "./dialogsReduser";
 
 export const addPostAC = (newPost?: string) => {
     return {
@@ -13,10 +13,42 @@ export const UpDateNewTextPostAC = (text: string) => {
         text: text
     } as const
 }
+export const setUserProfileAC = (profile:ProfilePropsType) => {
+    return {
+        type: 'SET-USER-PROFILE',
+        profile
+    } as const
+}
 export type PostPropsType = {
     id: string
     post: string;
     likecount: number;
+}
+export type ProfilePropsType1 = {
+    profile: ProfilePropsType
+}
+export type ProfilePropsType = {
+    aboutMe: string
+    contacts: ContactsType
+    lookingForAJob: true
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: PhotosType
+}
+export type ContactsType={
+    facebook: string
+    website: null
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: null
+    github: string
+    mainLink: null
+}
+export type PhotosType = {
+    small: string
+    large: string
 }
 
 export  type IninitialStateType = typeof initialState
@@ -29,6 +61,7 @@ let initialState = {
         {id: v1(), post: "Новый курс по JavaScript на IT-KAMASUTRA просто потрясающий!", likecount: 20}
     ] as Array<PostPropsType>,
     newPostText: '',
+    profile: {} as ProfilePropsType
 }
 
 export const profileReduser = (state:IninitialStateType = initialState, action: ActionsType):IninitialStateType => {
@@ -47,6 +80,9 @@ export const profileReduser = (state:IninitialStateType = initialState, action: 
         case "NEW-POST-TEXT": {
             state.newPostText = action.text
             return {...state}
+        }
+        case "SET-USER-PROFILE": {
+            return {...state, profile: action.profile}
         }
         default: return state
     }
