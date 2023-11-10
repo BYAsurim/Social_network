@@ -1,9 +1,18 @@
-.header{
-    grid-area:  h;
+.header {
+    grid-area: h;
     background-color: green;
-    
-    }
-    .header img{
-      width: 40px;
-    }
-    
+
+}
+
+.header img {
+    width: 40px;
+}
+
+.login {
+float: right;
+}
+.login > a {
+    color: #f9f9f9;
+    font-size: 20px;
+    margin-right: 10px;
+}
