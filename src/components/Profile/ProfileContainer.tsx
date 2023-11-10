@@ -1,16 +1,17 @@
-import React from "react";
+import React, {FC} from "react";
 import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
 import {ProfilePropsType, setUserProfileAC} from "../../redax/profileReduser";
 import {AppStateType} from "../../redax/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {compose} from "redux";
 
 
-export type ProfileContainerPropsType = ProfilePropsType & MapDispatchToProps
-// type MapStateToProps = {
-//     profile: ProfilePropsType
-// }
+export type ProfileContainerPropsType = MapStateToProps & MapDispatchToProps
+ type MapStateToProps = {
+     profile: ProfilePropsType
+ }
 
 type MapDispatchToProps = {
     setUserProfileAC: (profile: ProfilePropsType) => void
@@ -36,7 +37,7 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
 
         return (
             <div>
-                <Profile {...this.props}  />
+                <Profile  profile={this.props.profile} />
             </div>
         );
     }
@@ -44,9 +45,16 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
 };
 
 // let MapStatetoProps = (state: AppStateType) => ({profile: state.profileReduser.profile})
-let MapStatetoProps = (state: AppStateType) => state.profileReduser.profile
+let MapStatetoProps = (state: AppStateType): MapStateToProps => {
+    return {
+        profile: state.profileReduser.profile
+    }
+  }
 
 const ComponetWithRouser = withRouter(ProfileContainer)
 export default connect(MapStatetoProps, {
     setUserProfileAC
 })(ComponetWithRouser);
+// export default compose<FC>(connect(MapStatetoProps, {
+//     setUserProfileAC
+// }), withRouter)(ProfileContainer);

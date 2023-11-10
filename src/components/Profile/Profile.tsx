@@ -1,11 +1,13 @@
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsConteiner from "./MyPosts/MyPostsConteiner";
-import {ProfileContainerPropsType} from "./ProfileContainer";
+import {ProfilePropsType} from "../../redax/profileReduser";
 
-type ProfilePropsType = {}
+type ProfilePagePropsType = {
+    profile: ProfilePropsType
+}
 
-const Profile = (props: ProfileContainerPropsType) => {
+const Profile = (props: ProfilePagePropsType) => {
 
 
 
