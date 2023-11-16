@@ -6,7 +6,7 @@ import {
     SetCurrentPageAC,
     SetTotalUsersCountAC,
     SetUsersAC,
-    ToggleIsFetchingAC,
+    ToggleIsFetchingAC, ToggleIsFollowingAC,
     UnFollowAC,
     UsersPageType
 } from "../../redax/usersReduser";
@@ -21,6 +21,8 @@ type MapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: number[]
+
 }
 type mapDispatchToPropsType = {
     follow: (id: number) => void
@@ -29,6 +31,7 @@ type mapDispatchToPropsType = {
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (count: number) => void
     setIsFetching: (isFetching: boolean) => void
+    setFollowingInProgress: (followingProgress:boolean, UserId:number)=> void
 
 }
 // const instance = axios.create({
@@ -74,6 +77,8 @@ class UsersContainer extends React.Component<UsersPropsType, Array<UsersPageType
                        follow={this.props.follow}
                        unFollow={this.props.unFollow}
                        changeCurrentPageHandler={this.changeCurrentPageHandler}
+                       setFollowingInProgress={this.props.setFollowingInProgress}
+                       disabled={this.props.followingInProgress}
                 />}
         </>
     }
@@ -106,4 +111,5 @@ export default connect(mapStateToProps, {
     setCurrentPage:SetCurrentPageAC,
     setTotalUsersCount:SetTotalUsersCountAC,
     setIsFetching: ToggleIsFetchingAC,
+    setFollowingInProgress: ToggleIsFollowingAC
 })(UsersContainer);

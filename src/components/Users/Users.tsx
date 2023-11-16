@@ -14,6 +14,10 @@ type UsersPropsType = {
     currentPage: number
     follow: (id: number) => void
     unFollow: (id: number) => void
+    setFollowingInProgress: (followingProgress: boolean, UserId:number) => void
+    disabled: number[]
+
+
 }
 export const Users: React.FC<UsersPropsType> = ({
                                                     users,
@@ -22,7 +26,9 @@ export const Users: React.FC<UsersPropsType> = ({
                                                     currentPage,
                                                     follow,
                                                     unFollow,
-                                                    changeCurrentPageHandler
+                                                    changeCurrentPageHandler,
+                                                    setFollowingInProgress,
+                                                    disabled
 
                                                 }) => {
     const pagesCount = Math.ceil(totalUsersCount / pageSize)
@@ -39,20 +45,24 @@ export const Users: React.FC<UsersPropsType> = ({
     })
 
     const unFollowHandler = (id: number) => {
+        setFollowingInProgress(true, id)
         instance.delete(`follow/${id}`,)
             .then((res) => {
                 if (res.data.resultCode === 0) {
                     unFollow(id)
                 }
+                setFollowingInProgress(false, id)
             })
     }
 
     const followHandler = (id: number) => {
+        setFollowingInProgress(true, id)
         instance.post(`follow/${id}`, {})
             .then((res) => {
                 if (res.data.resultCode === 0) {
                     follow(id)
                 }
+                setFollowingInProgress(false, id)
             })
 
     }
@@ -84,10 +94,10 @@ export const Users: React.FC<UsersPropsType> = ({
                             u.followed ?
                                 <button onClick={() => {
                                     unFollowHandler(u.id)
-                                }}>UnFollow</button> :
+                                }} disabled={disabled.some(id => id === u.id)}>UnFollow</button> :
                                 <button onClick={() => {
                                     followHandler(u.id)
-                                }}>Follow</button>
+                                }} disabled={disabled.some(id => id === u.id)}>Follow</button>
                         }
 
                     </div>
