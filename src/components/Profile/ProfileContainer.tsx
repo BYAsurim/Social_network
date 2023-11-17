@@ -1,20 +1,19 @@
-import React, {FC} from "react";
+import React from "react";
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import {ProfilePropsType, setUserProfileAC} from "../../redax/profileReduser";
+import {getProfileTC, ProfilePropsType} from "../../redax/profileReduser";
 import {AppStateType} from "../../redax/redux-store";
-import {RouteComponentProps, withRouter} from "react-router-dom";
-import {compose} from "redux";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 
 
 export type ProfileContainerPropsType = MapStateToProps & MapDispatchToProps
- type MapStateToProps = {
-     profile: ProfilePropsType
- }
+type MapStateToProps = {
+    profile: ProfilePropsType
+    isAuth: boolean
+}
 
 type MapDispatchToProps = {
-    setUserProfileAC: (profile: ProfilePropsType) => void
+    getProfile: (id: string) => void
 }
 type PathParamsType = {
     userId: string
@@ -27,34 +26,36 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) userId = '2'
-        axios.get<ProfilePropsType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then((res) => {
-                this.props.setUserProfileAC(res.data)
-            })
-
+        // axios.get<ProfilePropsType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+        //     .then((res) => {
+        //         this.props.setUserProfileAC(res.data)
+        //     })
+        this.props.getProfile(userId)
     }
-    render() {
 
+    render() {
+        if (!this.props.isAuth) return <Redirect to={'/login'}/>
         return (
             <div>
-                <Profile  profile={this.props.profile} />
+                <Profile profile={this.props.profile}/>
             </div>
         );
     }
 
-};
+}
 
 // let MapStatetoProps = (state: AppStateType) => ({profile: state.profileReduser.profile})
 let MapStatetoProps = (state: AppStateType): MapStateToProps => {
     return {
-        profile: state.profileReduser.profile
+        profile: state.profileReduser.profile,
+        isAuth: state.authReducer.isAuth
     }
-  }
+}
 
 const ComponetWithRouser = withRouter(ProfileContainer)
 export default connect(MapStatetoProps, {
-    setUserProfileAC
+    getProfile: getProfileTC
 })(ComponetWithRouser);
 // export default compose<FC>(connect(MapStatetoProps, {
-//     setUserProfileAC
+//     getProfile: getProfileTC
 // }), withRouter)(ProfileContainer);

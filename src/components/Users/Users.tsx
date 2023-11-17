@@ -3,7 +3,7 @@ import s from "./users.module.css";
 import photo from "../../images/images.jpg";
 import {UsersPageType} from "../../redax/usersReduser";
 import {NavLink} from 'react-router-dom';
-import axios from "axios";
+
 
 
 type UsersPropsType = {
@@ -14,10 +14,7 @@ type UsersPropsType = {
     currentPage: number
     follow: (id: number) => void
     unFollow: (id: number) => void
-    setFollowingInProgress: (followingProgress: boolean, UserId:number) => void
     disabled: number[]
-
-
 }
 export const Users: React.FC<UsersPropsType> = ({
                                                     users,
@@ -27,7 +24,6 @@ export const Users: React.FC<UsersPropsType> = ({
                                                     follow,
                                                     unFollow,
                                                     changeCurrentPageHandler,
-                                                    setFollowingInProgress,
                                                     disabled
 
                                                 }) => {
@@ -36,35 +32,36 @@ export const Users: React.FC<UsersPropsType> = ({
     for (let i = 1; i <= pagesCount && i <= 10; i++) {
         pages.push(i)
     }
-    const instance = axios.create({
-        baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-        withCredentials: true,
-        headers: {
-            'API-KEY': 'e7e3f008-e2dc-4435-835d-1184d4097cbd'
-        }
-    })
+    // const instance = axios.create({
+    //     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+    //     withCredentials: true,
+    //     headers: {
+    //         'API-KEY': 'e7e3f008-e2dc-4435-835d-1184d4097cbd'
+    //     }
+    // })
 
     const unFollowHandler = (id: number) => {
-        setFollowingInProgress(true, id)
-        instance.delete(`follow/${id}`,)
-            .then((res) => {
-                if (res.data.resultCode === 0) {
-                    unFollow(id)
-                }
-                setFollowingInProgress(false, id)
-            })
+        // setFollowingInProgress(true, id)
+        // instance.delete(`follow/${id}`,)
+        //     .then((res) => {
+        //         if (res.data.resultCode === 0) {
+        //             unFollow(id)
+        //         }
+        //         setFollowingInProgress(false, id)
+        //     })
+        unFollow(id)
     }
 
     const followHandler = (id: number) => {
-        setFollowingInProgress(true, id)
-        instance.post(`follow/${id}`, {})
-            .then((res) => {
-                if (res.data.resultCode === 0) {
-                    follow(id)
-                }
-                setFollowingInProgress(false, id)
-            })
-
+        // setFollowingInProgress(true, id)
+        // instance.post(`follow/${id}`, {})
+        //     .then((res) => {
+        //         if (res.data.resultCode === 0) {
+        //             follow(id)
+        //         }
+        //         setFollowingInProgress(false, id)
+        //     })
+        follow(id)
     }
 
     return (
@@ -119,5 +116,3 @@ export const Users: React.FC<UsersPropsType> = ({
         </div>
     );
 };
-
-// export default Users;

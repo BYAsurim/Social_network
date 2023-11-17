@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authMe} from "../api/api";
+
 type ActionsType = ReturnType<typeof SetAuthUserDataAC>
 export  type InitialStateType = typeof initialState
 let initialState = {
@@ -26,8 +29,18 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
                 ...action.data, isAuth: true
             }
         }
-
         default:
             return state
     }
+}
+
+export const authMeTC = () => (dispatch: Dispatch) => {
+    authMe()
+        .then((res) => {
+            if (res.data.resultCode === 0) {
+                let {id, login, email} = res.data.data
+                dispatch(SetAuthUserDataAC(id, email, login))
+            }
+
+        })
 }

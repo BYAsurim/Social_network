@@ -1,5 +1,7 @@
 import {v1} from "uuid";
 import {ActionsType} from "./dialogsReduser";
+import {Dispatch} from "redux";
+import {getProfile} from "../api/api";
 
 export const addPostAC = (newPost?: string) => {
     return {
@@ -24,9 +26,7 @@ export type PostPropsType = {
     post: string;
     likecount: number;
 }
-export type ProfilePropsType1 = {
-    profile: ProfilePropsType
-}
+
 export type ProfilePropsType = {
     aboutMe: string
     contacts: ContactsType
@@ -86,4 +86,11 @@ export const profileReduser = (state:IninitialStateType = initialState, action: 
         }
         default: return state
     }
+}
+
+export const getProfileTC = (id:string)=> (dispatch:Dispatch)=>{
+    getProfile(id)
+        .then((res) => {
+            dispatch( setUserProfileAC(res.data))
+        })
 }
