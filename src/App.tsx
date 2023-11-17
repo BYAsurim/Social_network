@@ -11,6 +11,7 @@ import DialogsContainer from "./components/Dialogs/DialogsConteiner";
 import store from "./redax/redux-store";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import {Login} from "./components/login/Login";
 
 
 type AppPropsType = {
@@ -30,8 +31,6 @@ const App: React.FC<AppPropsType> = (props) => {
             <div className={'app-wrapper-content'}>
 
                 <Route path={'/dialogs'} render={() => <DialogsContainer
-
-                    // store={props.store}
                 />}/>
                 <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
                 <Route path={'/users'} render={() => <UsersContainer/>}/>
@@ -39,6 +38,7 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Route path={'/music'} component={Music}/>
                 <Route path={'/settings'} component={Settings}/>
                 <Route path={'/friends'} render={() => <Friends/>}/>
+                <Route path={'/login'} render={() => <Login/>}/>
             </div>
         </div>
     );
