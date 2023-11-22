@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redax/redux-store";
 import {
@@ -13,6 +13,8 @@ import {
 } from "../../redax/usersReduser";
 import {Users} from "./Users";
 import Preloader from "../common/preloader/Preloader";
+import {compose} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 type MapStateToPropsType = {
@@ -105,12 +107,25 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 // }
 
 
-export default connect(mapStateToProps, {
-    follow: FollowAC,
-    unFollow: UnFollowAC,
-    setUsers: SetUsersAC,
-    getUsers: getUsersTC,
-    changeCurrentPage: changeCurrentPageTC,
-    unFollowUser: unFollowUserTC,
-    followUser: followUserTC
-})(UsersContainer);
+// export default connect(mapStateToProps, {
+//     follow: FollowAC,
+//     unFollow: UnFollowAC,
+//     setUsers: SetUsersAC,
+//     getUsers: getUsersTC,
+//     changeCurrentPage: changeCurrentPageTC,
+//     unFollowUser: unFollowUserTC,
+//     followUser: followUserTC
+// })(UsersContainer);
+
+export default compose<FC>(
+    connect(mapStateToProps, {
+        follow: FollowAC,
+        unFollow: UnFollowAC,
+        setUsers: SetUsersAC,
+        getUsers: getUsersTC,
+        changeCurrentPage: changeCurrentPageTC,
+        unFollowUser: unFollowUserTC,
+        followUser: followUserTC
+    }),
+    WithAuthRedirect
+)(UsersContainer)
