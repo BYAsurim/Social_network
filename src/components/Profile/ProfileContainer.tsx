@@ -62,4 +62,5 @@ let MapStatetoProps = (state: AppStateType): MapStateToProps => {
 export default compose<FC>(
     connect(MapStatetoProps, {getProfile: getProfileTC}),
     withRouter,
-    WithAuthRedirect)(ProfileContainer);
+    // WithAuthRedirect
+)(ProfileContainer);
