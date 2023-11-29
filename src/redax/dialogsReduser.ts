@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {addPostAC, setUserProfileAC, UpDateNewTextPostAC} from "./profileReduser";
+import {addPostAC, SetStatusAC, setUserProfileAC, UpDateNewTextPostAC, UpDateStatusAC} from "./profileReduser";
 
 export type DialogsPageType = {
     profile: UserPropsType[]
@@ -19,7 +19,9 @@ export type ActionsType = ReturnType<typeof addPostAC> |
     ReturnType<typeof UpDateNewTextPostAC> |
     ReturnType<typeof addMessageAC> |
     ReturnType<typeof UpDateNewTextMessageAC>|
-    ReturnType<typeof setUserProfileAC>
+    ReturnType<typeof setUserProfileAC> |
+    ReturnType<typeof SetStatusAC> |
+    ReturnType<typeof UpDateStatusAC>
 
 export const addMessageAC = (newText?: string) => {
     return {

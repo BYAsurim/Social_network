@@ -5,6 +5,8 @@ import {ProfilePropsType} from "../../redax/profileReduser";
 
 type ProfilePagePropsType = {
     profile: ProfilePropsType
+    status: string
+    upDateStatus: (status: string) => void
 }
 
 const Profile = (props: ProfilePagePropsType) => {

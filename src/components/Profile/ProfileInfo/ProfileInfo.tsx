@@ -7,9 +7,11 @@ import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: ProfilePropsType
+    status: string
+    upDateStatus: (status: string) => void
 }
 
-const ProfileInfo = ({profile}: ProfileInfoPropsType) => {
+const ProfileInfo = ({profile , status,upDateStatus}: ProfileInfoPropsType) => {
 
     if (!profile) {
         return <Preloader/>
@@ -25,7 +27,7 @@ const ProfileInfo = ({profile}: ProfileInfoPropsType) => {
             <div className={s.nameAndAbout}>
                 <span> {profile.fullName} </span>
                 <span> {profile.aboutMe} </span>
-                <ProfileStatus status={'status here!'}/>
+                <ProfileStatus status={status} upDateStatus={upDateStatus}/>
 
             </div>
             {/*<div className={s.descriptionBlock}>Ava + description</div>*/}

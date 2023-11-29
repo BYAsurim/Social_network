@@ -28,6 +28,14 @@ export const getProfile = (id:string)=>{
     return instance.get<ProfilePropsType>(`profile/${id}`)
 
 }
+export const setStatus = (userId:string)=>{
+    return instance.get(`profile/status/${userId}`)
+}
+export const upDateStatus = (status:string)=>{
+    return instance.put('profile/status', {status})
+}
+
+
 
 //Auth
 export const authMe = ()=>{

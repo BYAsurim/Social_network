@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 import {ActionsType} from "./dialogsReduser";
 import {Dispatch} from "redux";
-import {getProfile} from "../api/api";
+import {getProfile, setStatus, upDateStatus} from "../api/api";
 
 export const addPostAC = (newPost?: string) => {
     return {
@@ -15,10 +15,22 @@ export const UpDateNewTextPostAC = (text: string) => {
         text: text
     } as const
 }
-export const setUserProfileAC = (profile:ProfilePropsType) => {
+export const setUserProfileAC = (profile: ProfilePropsType) => {
     return {
         type: 'SET-USER-PROFILE',
         profile
+    } as const
+}
+export const SetStatusAC = (status: string) => {
+    return {
+        type: 'SET-STATUS',
+        status
+    } as const
+}
+export const UpDateStatusAC = (status: string) => {
+    return {
+        type: 'NEW-STATUS-TEXT',
+        status
     } as const
 }
 export type PostPropsType = {
@@ -36,7 +48,7 @@ export type ProfilePropsType = {
     userId: number
     photos: PhotosType
 }
-export type ContactsType={
+export type ContactsType = {
     facebook: string
     website: null
     vk: string
@@ -61,10 +73,11 @@ let initialState = {
         {id: v1(), post: "Новый курс по JavaScript на IT-KAMASUTRA просто потрясающий!", likecount: 20}
     ] as Array<PostPropsType>,
     newPostText: '',
-    profile: {} as ProfilePropsType
+    profile: {} as ProfilePropsType,
+    status: ''
 }
 
-export const profileReduser = (state:IninitialStateType = initialState, action: ActionsType):IninitialStateType => {
+export const profileReduser = (state: IninitialStateType = initialState, action: ActionsType): IninitialStateType => {
     switch (action.type) {
         case "ADD-POST": {
             const newPost = {
@@ -84,13 +97,35 @@ export const profileReduser = (state:IninitialStateType = initialState, action: 
         case "SET-USER-PROFILE": {
             return {...state, profile: action.profile}
         }
-        default: return state
+        case "SET-STATUS": {
+            return {...state, status: action.status}
+        }
+        case "NEW-STATUS-TEXT":{
+            return {...state, status: action.status}
+        }
+
+        default:
+            return state
     }
 }
 
-export const getProfileTC = (id:string)=> (dispatch:Dispatch)=>{
+export const getProfileTC = (id: string) => (dispatch: Dispatch) => {
     getProfile(id)
         .then((res) => {
-            dispatch( setUserProfileAC(res.data))
+            dispatch(setUserProfileAC(res.data))
+        })
+}
+export const setStatusTC = (userId: string) => (dispatch: Dispatch) => {
+    setStatus(userId)
+        .then((res) => {
+            dispatch(SetStatusAC(res.data))
+        })
+}
+export const upDateStatusTC = (status: string) => (dispatch: Dispatch) => {
+    upDateStatus(status)
+        .then((res) => {
+            if (res.data.resultCode === 0){
+                dispatch(UpDateStatusAC(status))
+            }
         })
 }
