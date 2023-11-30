@@ -9,9 +9,10 @@ type ProfileInfoPropsType = {
     profile: ProfilePropsType
     status: string
     upDateStatus: (status: string) => void
+    changeStatus:(status: string) => void
 }
 
-const ProfileInfo = ({profile , status,upDateStatus}: ProfileInfoPropsType) => {
+const ProfileInfo = ({profile , status,upDateStatus, changeStatus}: ProfileInfoPropsType) => {
 
     if (!profile) {
         return <Preloader/>
@@ -27,7 +28,12 @@ const ProfileInfo = ({profile , status,upDateStatus}: ProfileInfoPropsType) => {
             <div className={s.nameAndAbout}>
                 <span> {profile.fullName} </span>
                 <span> {profile.aboutMe} </span>
-                <ProfileStatus status={status} upDateStatus={upDateStatus}/>
+                <ProfileStatus
+                    status={status}
+                    upDateStatus={upDateStatus}
+                    changeStatus={changeStatus}
+                />
+
 
             </div>
             {/*<div className={s.descriptionBlock}>Ava + description</div>*/}

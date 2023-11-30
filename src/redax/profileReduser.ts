@@ -124,7 +124,7 @@ export const setStatusTC = (userId: string) => (dispatch: Dispatch) => {
 export const upDateStatusTC = (status: string) => (dispatch: Dispatch) => {
     upDateStatus(status)
         .then((res) => {
-            if (res.data.resultCode === 0){
+            if (res.data.resultCode === 0) {
                 dispatch(UpDateStatusAC(status))
             }
         })

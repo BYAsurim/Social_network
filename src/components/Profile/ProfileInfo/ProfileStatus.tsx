@@ -1,31 +1,32 @@
 import React, {ChangeEvent, useState} from 'react';
 
 
-
 type ProfileStatusPropsType = {
     status: string
     upDateStatus: (status: string) => void
+    changeStatus: (status: string) => void
 }
 export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({
                                                                     status,
-                                                                    upDateStatus
+                                                                    upDateStatus,
+                                                                    changeStatus,
                                                                 }) => {
     const [editMode, setEditMode] = useState(false)
-    const [statusText, setStatusText] = useState('')
+
     const changeEditModeHandler = () => {
         setEditMode(!editMode)
-        upDateStatus(statusText)
+        upDateStatus(status)
     }
-    const changeStatusText = (e:ChangeEvent<HTMLInputElement>) => {
-        setStatusText(e.currentTarget.value)
+    const changeStatusText = (e: ChangeEvent<HTMLInputElement>) => {
+        changeStatus(e.currentTarget.value)
     }
 
     return (
         <div>
             {
                 !editMode
-                    ? <span onDoubleClick={changeEditModeHandler}>{status ||  'status here'}</span>
-                    : <input type="text" value={statusText}
+                    ? <span onDoubleClick={changeEditModeHandler}>{status || 'status here'}</span>
+                    : <input type="text" value={status}
                              onBlur={changeEditModeHandler}
                              onChange={changeStatusText}
                              autoFocus

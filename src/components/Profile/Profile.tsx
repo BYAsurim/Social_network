@@ -7,6 +7,7 @@ type ProfilePagePropsType = {
     profile: ProfilePropsType
     status: string
     upDateStatus: (status: string) => void
+    changeStatus:(status: string) => void
 }
 
 const Profile = (props: ProfilePagePropsType) => {

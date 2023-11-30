@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfileTC, ProfilePropsType, setStatusTC, upDateStatusTC} from "../../redax/profileReduser";
+import {getProfileTC, ProfilePropsType, SetStatusAC, setStatusTC, upDateStatusTC} from "../../redax/profileReduser";
 import {AppStateType} from "../../redax/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
@@ -19,6 +19,7 @@ type MapDispatchToProps = {
     getProfile: (id: string) => void
     setStatus: (userId: string) => void
     upDateStatus: (status: string) => void
+    changeStatus:(status: string) => void
 }
 type PathParamsType = {
     userId: string
@@ -31,11 +32,6 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) userId = '30202'
-        // axios.get<ProfilePropsType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-        //     .then((res) => {
-        //         this.props.setUserProfileAC(res.data)
-        //     })
-
         this.props.getProfile(userId)
         this.props.setStatus(userId)
     }
@@ -48,6 +44,7 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
                     profile={this.props.profile}
                     status={this.props.status}
                     upDateStatus={this.props.upDateStatus}
+                    changeStatus={this.props.changeStatus}
                 />
             </div>
         );
@@ -73,7 +70,8 @@ export default compose<FC>(
     connect(MapStatetoProps, {
         getProfile: getProfileTC,
         setStatus: setStatusTC,
-        upDateStatus:upDateStatusTC
+        upDateStatus:upDateStatusTC,
+        changeStatus:SetStatusAC
     }),
     withRouter,
     // WithAuthRedirect
