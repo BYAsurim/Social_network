@@ -5,6 +5,7 @@ import {navbarReduser} from "./navbarReduser";
 import {usersReducer} from "./usersReduser";
 import {authReducer} from "./authReduser";
 import thunk from "redux-thunk"
+import {reducer as formReducer} from 'redux-form';
 
 
 export const rootRedusers = combineReducers({
@@ -13,6 +14,7 @@ export const rootRedusers = combineReducers({
     navbarReduser,
     usersReducer,
     authReducer,
+    form: formReducer,
 })
 // export type AppStoreType = typeof store
 export type AppStateType = ReturnType<typeof rootRedusers>
