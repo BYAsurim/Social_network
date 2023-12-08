@@ -3,18 +3,20 @@ import s from "./MyPosts.module.css";
 import Post from "./Posts/Post";
 import {AppStateType} from "../../../redax/redux-store";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
+import InputControls from "../../common/FormsControl/FormsControl";
 
 
 type MyPostsPropsType = {
-    addPost: (post:string)=>void
+    addPost: (post: string) => void
     profilePage: AppStateType
 }
 
 
 const MyPosts = (props: MyPostsPropsType) => {
 
-    const onAddPost = (value:FormDataType ) => {
-       props.addPost(value.newPost)
+    const onAddPost = (value: FormDataType) => {
+        props.addPost(value.newPost)
     }
 
     return (
@@ -42,18 +44,19 @@ export default MyPosts;
 
 
 type FormDataType = {
-    newPost:string
+    newPost: string
 }
-
+const maxLength10 = maxLengthCreator(10)
 
 const PostsForm = (props: InjectedFormProps<FormDataType>) => {
 
     return <div className={s.inputButton}>
         <form onSubmit={props.handleSubmit}>
-            <Field placeholder={'Enter your message'}
+            <Field placeholder={'Post message'}
                    name={'newPost'}
-                   component={'input'}
+                   component={InputControls}
                    className={s.inputField}
+                   validate={[requiredField, maxLength10]}
 
             />
             <div>

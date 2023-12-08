@@ -4,6 +4,8 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsConteiner";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import InputControls from "../common/FormsControl/FormsControl";
+import {maxLengthCreator, requiredField} from "../../utils/validators/validators";
 
 
 const Dialogs = (props: DialogsPropsType) => {
@@ -39,13 +41,16 @@ export default Dialogs;
 type FormDataType = {
     newMessage:string
 }
+
+const maxLength50 = maxLengthCreator(50)
 const DialogsForm = (props: InjectedFormProps<FormDataType>) => {
     return <div className={s.inputButton}>
         <form onSubmit={props.handleSubmit}>
             <Field placeholder={'Enter your message'}
                    name={'newMessage'}
-                   component={'input'}
+                   component={InputControls}
                    className={s.inputField}
+                   validate={[requiredField,maxLength50]}
             />
             <div>
                 <button className={s.sendButton}>send</button>
