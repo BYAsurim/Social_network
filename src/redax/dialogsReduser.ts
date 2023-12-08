@@ -1,10 +1,10 @@
 import {v1} from "uuid";
-import {addPostAC, SetStatusAC, setUserProfileAC, UpDateNewTextPostAC, UpDateStatusAC} from "./profileReduser";
+import {addPostAC, SetStatusAC, setUserProfileAC, UpDateStatusAC} from "./profileReduser";
 
 export type DialogsPageType = {
     profile: UserPropsType[]
     messages: Array<MessagePropsType>
-    newMessageText: string
+
 }
 export type MessagePropsType = {
     id: string
@@ -16,25 +16,19 @@ export type UserPropsType = {
 }
 
 export type ActionsType = ReturnType<typeof addPostAC> |
-    ReturnType<typeof UpDateNewTextPostAC> |
     ReturnType<typeof addMessageAC> |
-    ReturnType<typeof UpDateNewTextMessageAC>|
     ReturnType<typeof setUserProfileAC> |
     ReturnType<typeof SetStatusAC> |
     ReturnType<typeof UpDateStatusAC>
 
-export const addMessageAC = (newText?: string) => {
+
+export const addMessageAC = (newMessage: string) => {
     return {
         type: 'ADD-MESSAGE',
-        // newText: newText
+        newMessage
     } as const
 }
-export const UpDateNewTextMessageAC = (text: string) => {
-    return {
-        type: 'NEW-MESSAGE-TEXT',
-        text: text
-    } as const
-}
+
 let initialState:DialogsPageType = {
     profile: [
         {id: v1(), name: "Sasha"},
@@ -51,7 +45,7 @@ let initialState:DialogsPageType = {
         {id: v1(), message: "Спасибо за отзыв! Очень рады, что наш продукт вам понравился."},
         {id: v1(), message: "Не забудьте записаться на курс по JavaScript!"}
     ],
-    newMessageText: ''
+
 }
 
 export const dialogsReduser = (state = initialState, action: ActionsType): DialogsPageType => {
@@ -60,16 +54,11 @@ export const dialogsReduser = (state = initialState, action: ActionsType): Dialo
         case "ADD-MESSAGE":{
             const newMessage = {
                 id: v1(),
-                message: state.newMessageText
+                message: action.newMessage
             }
-            // state.messages.push(newMessage)
-            // state.newMessageText = ''
-            return {...state, messages:[...state.messages, newMessage], newMessageText: ''}
+            return {...state, messages:[...state.messages, newMessage]}
         }
-        case "NEW-MESSAGE-TEXT":{
-            state.newMessageText = action.text
-            return {...state}
-        }
+
         default: return state
 
     }

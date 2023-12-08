@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
@@ -8,23 +8,10 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 const Dialogs = (props: DialogsPropsType) => {
 
-
-    const addMessageHandler = () => {
-        props.onAddMessage()
-
-    }
-    const addNewMessage = () => {
-
-
+    const addNewMessage = (values:FormDataType) => {
+        props.onAddMessage(values.newMessage)
     }
 
-    const changeInputMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        let newText = e.currentTarget.value
-        if (e.currentTarget) {
-            props.onChangeInputMessage(newText)
-        }
-
-    }
     const dialogsElements = props.dialogsPage.profile.map(el => <DialogItem key={el.id} id={el.id} name={el.name}/>)
     const messageElements = props.dialogsPage.messages.map(el => <Message key={el.id} id={el.id} message={el.message}/>)
 
@@ -40,15 +27,6 @@ const Dialogs = (props: DialogsPropsType) => {
 
             </div>
             <div></div>
-            {/*<div className={s.inputButton}>*/}
-            {/*    <div>*/}
-            {/*        <input value={props.dialogsPage.newMessageText} className={s.inputField}*/}
-            {/*               onChange={changeInputMessageHandler}/>*/}
-            {/*    </div>*/}
-            {/*    <div>*/}
-            {/*        <button onClick={addMessageHandler} className={s.sendButton}>send</button>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
             <DialogsAddMessageForm  onSubmit={addNewMessage}/>
 
 
@@ -59,13 +37,13 @@ export default Dialogs;
 
 
 type FormDataType = {
-    message:string
+    newMessage:string
 }
 const DialogsForm = (props: InjectedFormProps<FormDataType>) => {
     return <div className={s.inputButton}>
         <form onSubmit={props.handleSubmit}>
             <Field placeholder={'Enter your message'}
-                   name={'newMessageBody'}
+                   name={'newMessage'}
                    component={'input'}
                    className={s.inputField}
             />
