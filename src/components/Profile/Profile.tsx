@@ -12,14 +12,10 @@ type ProfilePagePropsType = {
 
 const Profile = (props: ProfilePagePropsType) => {
 
-
-
     return (
         <div>
             <ProfileInfo {...props} />
             <MyPostsConteiner/>
-
-
         </div>
     );
 };

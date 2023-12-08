@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {getProfileTC, ProfilePropsType, SetStatusAC, setStatusTC, upDateStatusTC} from "../../redax/profileReduser";
 import {AppStateType} from "../../redax/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
 

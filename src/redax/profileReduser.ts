@@ -3,18 +3,13 @@ import {ActionsType} from "./dialogsReduser";
 import {Dispatch} from "redux";
 import {getProfile, setStatus, upDateStatus} from "../api/api";
 
-export const addPostAC = (newPost?: string) => {
+export const addPostAC = (newPost: string) => {
     return {
         type: 'ADD-POST',
-        // newPost: newPost
+       newPost
     } as const
 }
-export const UpDateNewTextPostAC = (text: string) => {
-    return {
-        type: 'NEW-POST-TEXT',
-        text: text
-    } as const
-}
+
 export const setUserProfileAC = (profile: ProfilePropsType) => {
     return {
         type: 'SET-USER-PROFILE',
@@ -72,7 +67,6 @@ let initialState = {
         {id: v1(), post: "Вчера был на концерте своей любимой группы!", likecount: 30},
         {id: v1(), post: "Новый курс по JavaScript на IT-KAMASUTRA просто потрясающий!", likecount: 20}
     ] as Array<PostPropsType>,
-    newPostText: '',
     profile: {} as ProfilePropsType,
     status: ''
 }
@@ -82,17 +76,11 @@ export const profileReduser = (state: IninitialStateType = initialState, action:
         case "ADD-POST": {
             const newPost = {
                 id: v1(),
-                post: state.newPostText,
+                post: action.newPost,
                 likecount: 0
             }
-            let stateCopy = {...state, posts: [...state.posts, newPost]}
-            // stateCopy.posts.push(newPost)
-            stateCopy.newPostText = ''
+            let stateCopy = {...state, posts: [...state.posts,  newPost]}
             return stateCopy
-        }
-        case "NEW-POST-TEXT": {
-            state.newPostText = action.text
-            return {...state}
         }
         case "SET-USER-PROFILE": {
             return {...state, profile: action.profile}

@@ -1,11 +1,8 @@
-import React from 'react';
-import {addPostAC, UpDateNewTextPostAC} from "../../../redax/profileReduser";
+import {addPostAC} from "../../../redax/profileReduser";
 import MyPosts from "./MyPosts";
 import {AppStateType} from "../../../redax/redux-store";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
-
-
 
 
 // type MyPostsPropsType = {
@@ -42,8 +39,8 @@ import {connect} from "react-redux";
 // };
 
 type mapDispatchToPropsType = {
-    addPost: ()=>void
-    onPostChange: (text: string)=> void
+    addPost: (post:string)=>void
+    // onPostChange: (text: string)=> void
 }
 
 let mapStateToProps =(state:AppStateType)=>{
@@ -54,13 +51,9 @@ let mapStateToProps =(state:AppStateType)=>{
 
 let mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType=>{
     return{
-        addPost:()=> {
-            dispatch(addPostAC())
-        } ,
-        onPostChange: (text: string)=> {
-            dispatch(UpDateNewTextPostAC(text))
+        addPost:(post:string)=> {
+            dispatch(addPostAC(post))
         }
-
     }
 }
 const MyPostsContainer = connect(mapStateToProps,mapDispatchToProps)(MyPosts);
