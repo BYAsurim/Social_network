@@ -97,13 +97,13 @@ export const profileReduser = (state: IninitialStateType = initialState, action:
     }
 }
 
-export const getProfileTC = (id: string) => (dispatch: Dispatch) => {
+export const getProfileTC = (id: number) => (dispatch: Dispatch) => {
     getProfile(id)
         .then((res) => {
             dispatch(setUserProfileAC(res.data))
         })
 }
-export const setStatusTC = (userId: string) => (dispatch: Dispatch) => {
+export const setStatusTC = (userId: number) => (dispatch: Dispatch) => {
     setStatus(userId)
         .then((res) => {
             dispatch(SetStatusAC(res.data))

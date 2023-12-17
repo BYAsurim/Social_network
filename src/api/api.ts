@@ -24,11 +24,11 @@ export const unFollowUsers = (id: number)=>{
 }
 
 //Profile
-export const getProfile = (id:string)=>{
+export const getProfile = (id:number)=>{
     return instance.get<ProfilePropsType>(`profile/${id}`)
 
 }
-export const setStatus = (userId:string)=>{
+export const setStatus = (userId:number)=>{
     return instance.get(`profile/status/${userId}`)
 }
 export const upDateStatus = (status:string)=>{
@@ -40,4 +40,10 @@ export const upDateStatus = (status:string)=>{
 //Auth
 export const authMe = ()=>{
     return instance.get(`auth/me`)
+}
+export const login = (email:string, password:string, rememberMe:boolean = false)=>{
+    return instance.post(`auth/login`, {email, password, rememberMe})
+}
+export const logOut = ()=>{
+    return instance.delete(`auth/login`)
 }
