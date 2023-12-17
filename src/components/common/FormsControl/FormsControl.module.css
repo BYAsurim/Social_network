@@ -7,3 +7,9 @@
 .error  span{
     color: red;
 }
+.formSomeError{
+    border: solid rgba(255, 60, 0, 0.95) 1px;
+    padding: 5px;
+    color: #ad1414;
+    width: 200px;
+}

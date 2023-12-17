@@ -11,7 +11,7 @@ import DialogsContainer from "./components/Dialogs/DialogsConteiner";
 import store from "./redax/redux-store";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import {Login} from "./components/login/Login";
+import Login from "./components/login/Login";
 
 
 type AppPropsType = {
@@ -20,7 +20,7 @@ type AppPropsType = {
 }
 
 
-const App: React.FC<AppPropsType> = (props) => {
+const App: React.FC<AppPropsType> = () => {
     // const state = props.store.getState()
     return (
         <div className='app-wrapper'>

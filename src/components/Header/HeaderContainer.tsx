@@ -2,19 +2,20 @@ import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redax/redux-store";
-import {authMeTC} from "../../redax/authReduser";
+import {authMeTC, logOutTC} from "../../redax/authReduser";
 
 
 export type HeaderContainerPropsType = MapStateToPropsType & MapDispatchToProps
 type MapStateToPropsType = {
-    isAuth:boolean,
-    login:string
+    isAuth: boolean,
+    login: string
 
 }
 
 type MapDispatchToProps = {
-   // SetAuthUserDataAC: (id: number, email: string, login: string) => void
-    authMe:()=> void
+    // SetAuthUserDataAC: (id: number, email: string, login: string) => void
+    authMe: () => void
+    logOut: () => void
 }
 
 // const instance = axios.create({
@@ -40,16 +41,17 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType, unknown>
 
     render() {
         return (
-            <Header isAuth={this.props.isAuth} login={this.props.login} />
+            <Header isAuth={this.props.isAuth} login={this.props.login} logOut={this.props.logOut}/>
         )
     }
 }
 
-let MapStateToProps = (state: AppStateType):MapStateToPropsType => ({
+let MapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     isAuth: state.authReducer.isAuth,
     login: state.authReducer.login
 })
 
 export default connect(MapStateToProps, {
-    authMe : authMeTC
+    authMe: authMeTC,
+    logOut: logOutTC
 })(HeaderContainer);

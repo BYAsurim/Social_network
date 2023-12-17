@@ -12,13 +12,14 @@ type MapStateToProps = {
     profile: ProfilePropsType
     isAuth: boolean
     status: string
+    authorizedUserId: number
 }
 
 type MapDispatchToProps = {
-    getProfile: (id: string) => void
-    setStatus: (userId: string) => void
+    getProfile: (id: number) => void
+    setStatus: (userId: number) => void
     upDateStatus: (status: string) => void
-    changeStatus:(status: string) => void
+    changeStatus: (status: string) => void
 }
 type PathParamsType = {
     userId: string
@@ -29,8 +30,8 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
 class ProfileContainer extends React.Component<PropsType, unknown> {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId
-        if (!userId) userId = '30202'
+        let userId = +this.props.match.params.userId
+        if (!userId) userId = this.props.authorizedUserId
         this.props.getProfile(userId)
         this.props.setStatus(userId)
     }
@@ -56,7 +57,8 @@ let MapStatetoProps = (state: AppStateType): MapStateToProps => {
     return {
         profile: state.profileReduser.profile,
         isAuth: state.authReducer.isAuth,
-        status: state.profileReduser.status
+        status: state.profileReduser.status,
+        authorizedUserId: state.authReducer.id
     }
 }
 
@@ -69,8 +71,8 @@ export default compose<FC>(
     connect(MapStatetoProps, {
         getProfile: getProfileTC,
         setStatus: setStatusTC,
-        upDateStatus:upDateStatusTC,
-        changeStatus:SetStatusAC
+        upDateStatus: upDateStatusTC,
+        changeStatus: SetStatusAC
     }),
     withRouter,
     // WithAuthRedirect
