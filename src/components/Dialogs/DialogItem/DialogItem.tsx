@@ -1,7 +1,7 @@
 import s from "../Dialogs.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
-import {UserPropsType} from "../../../redax/dialogsReduser";
+import {UserPropsType} from "../../../redax/dialogsReducer";
 
 
 

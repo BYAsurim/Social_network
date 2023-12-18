@@ -1,7 +1,7 @@
 import React from 'react';
 import s from "./users.module.css";
 import photo from "../../images/images.jpg";
-import {UsersPageType} from "../../redax/usersReduser";
+import {UsersPageType} from "../../redax/usersReducer";
 import {NavLink} from 'react-router-dom';
 
 

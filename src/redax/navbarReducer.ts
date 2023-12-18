@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionsType} from "./dialogsReduser";
+import {ActionsType} from "./dialogsReducer";
 
 export type FriendsPropsType = {
     id: string
@@ -17,7 +17,7 @@ let initialState = {
     ]
 }
 
-export const navbarReduser = (state = initialState, action: ActionsType): FriendsPropsTypeArray => {
+export const navbarReducer = (state = initialState, action: ActionsType): FriendsPropsTypeArray => {
     return state
 
 

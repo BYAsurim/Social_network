@@ -1,7 +1,7 @@
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsConteiner from "./MyPosts/MyPostsConteiner";
-import {ProfilePropsType} from "../../redax/profileReduser";
+import {ProfilePropsType} from "../../redax/profileReducer";
 
 type ProfilePagePropsType = {
     profile: ProfilePropsType

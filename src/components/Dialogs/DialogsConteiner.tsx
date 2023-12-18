@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import {addMessageAC, DialogsPageType} from "../../redax/dialogsReduser";
+import {addMessageAC, DialogsPageType} from "../../redax/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redax/redux-store";
@@ -19,7 +19,7 @@ export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        dialogsPage: state.dialogsReduser
+        dialogsPage: state.dialogsReducer
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {

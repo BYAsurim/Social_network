@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {addPostAC, SetStatusAC, setUserProfileAC, UpDateStatusAC} from "./profileReduser";
+import {addPostAC, SetStatusAC, setUserProfileAC, UpDateStatusAC} from "./profileReducer";
 
 export type DialogsPageType = {
     profile: UserPropsType[]
@@ -48,7 +48,7 @@ let initialState:DialogsPageType = {
 
 }
 
-export const dialogsReduser = (state = initialState, action: ActionsType): DialogsPageType => {
+export const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageType => {
 
     switch (action.type) {
         case "ADD-MESSAGE":{

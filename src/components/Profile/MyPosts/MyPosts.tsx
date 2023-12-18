@@ -28,7 +28,7 @@ const MyPosts = (props: MyPostsPropsType) => {
 
             <div className={s.posts}>
                 {
-                    props.profilePage.profileReduser.posts.map((el) => {
+                    props.profilePage.profileReducer.posts.map((el) => {
                         return (
                             <Post key={el.id} id={el.id} post={el.post} likecount={el.likecount}/>
                         )

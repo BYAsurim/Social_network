@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfileTC, ProfilePropsType, SetStatusAC, setStatusTC, upDateStatusTC} from "../../redax/profileReduser";
+import {getProfileTC, ProfilePropsType, SetStatusAC, setStatusTC, upDateStatusTC} from "../../redax/profileReducer";
 import {AppStateType} from "../../redax/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
@@ -32,6 +32,7 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
     componentDidMount() {
         let userId = +this.props.match.params.userId
         if (!userId) userId = this.props.authorizedUserId
+        if (!userId) this.props.history.push('/login')
         this.props.getProfile(userId)
         this.props.setStatus(userId)
     }
@@ -55,9 +56,9 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
 // let MapStatetoProps = (state: AppStateType) => ({profile: state.profileReduser.profile})
 let MapStatetoProps = (state: AppStateType): MapStateToProps => {
     return {
-        profile: state.profileReduser.profile,
+        profile: state.profileReducer.profile,
         isAuth: state.authReducer.isAuth,
-        status: state.profileReduser.status,
+        status: state.profileReducer.status,
         authorizedUserId: state.authReducer.id
     }
 }

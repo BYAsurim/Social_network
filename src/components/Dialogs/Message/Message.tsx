@@ -1,6 +1,6 @@
 import s from "../Dialogs.module.css";
 import React from "react";
-import {MessagePropsType} from "../../../redax/dialogsReduser";
+import {MessagePropsType} from "../../../redax/dialogsReducer";
 
 
 

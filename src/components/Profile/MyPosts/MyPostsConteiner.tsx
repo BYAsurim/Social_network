@@ -1,4 +1,4 @@
-import {addPostAC} from "../../../redax/profileReduser";
+import {addPostAC} from "../../../redax/profileReducer";
 import MyPosts from "./MyPosts";
 import {AppStateType} from "../../../redax/redux-store";
 import {Dispatch} from "redux";

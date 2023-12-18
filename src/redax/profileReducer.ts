@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionsType} from "./dialogsReduser";
+import {ActionsType} from "./dialogsReducer";
 import {Dispatch} from "redux";
 import {getProfile, setStatus, upDateStatus} from "../api/api";
 
@@ -71,7 +71,7 @@ let initialState = {
     status: ''
 }
 
-export const profileReduser = (state: IninitialStateType = initialState, action: ActionsType): IninitialStateType => {
+export const profileReducer = (state: IninitialStateType = initialState, action: ActionsType): IninitialStateType => {
     switch (action.type) {
         case "ADD-POST": {
             const newPost = {

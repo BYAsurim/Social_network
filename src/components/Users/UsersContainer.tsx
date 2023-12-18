@@ -10,7 +10,7 @@ import {
     UnFollowAC,
     unFollowUserTC,
     UsersPageType
-} from "../../redax/usersReduser";
+} from "../../redax/usersReducer";
 import {Users} from "./Users";
 import Preloader from "../common/preloader/Preloader";
 import {compose} from "redux";
@@ -94,28 +94,6 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     )
 }
 
-// let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-//     return {
-//         follow: (id: number) => dispatch(FollowAC(id)),
-//         unFollow: (id: number) => dispatch(UnFollowAC(id)),
-//         setUsers: (users) => dispatch(SetUsersAC(users)),
-//         setCurrentPage: (currentPage: number) => dispatch(SetCurrentPageAC(currentPage)),
-//         setTotalUsersCount: (count: number) => dispatch(SetTotalUsersCountAC(count)),
-//         setIsFetching: (isFetching: boolean) => dispatch(ToggleIsFetchingAC(isFetching))
-//
-//     }
-// }
-
-
-// export default connect(mapStateToProps, {
-//     follow: FollowAC,
-//     unFollow: UnFollowAC,
-//     setUsers: SetUsersAC,
-//     getUsers: getUsersTC,
-//     changeCurrentPage: changeCurrentPageTC,
-//     unFollowUser: unFollowUserTC,
-//     followUser: followUserTC
-// })(UsersContainer);
 
 export default compose<FC>(
     connect(mapStateToProps, {

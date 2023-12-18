@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './BestFriends.module.css'
-import {FriendsPropsTypeArray} from "../../redax/navbarReduser";
+import {FriendsPropsTypeArray} from "../../redax/navbarReducer";
 
 
 type BestFriendsPropsType = {
