@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ProfilePropsType} from "../redax/profileReduser";
+import {ProfilePropsType} from "../redax/profileReducer";
 
 
 const instance = axios.create({

@@ -37,7 +37,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 }
 
 export const authMeTC = () => (dispatch: Dispatch) => {
-    authMe()
+   return  authMe()
         .then((res) => {
             if (res.data.resultCode === 0) {
                 let {id, login, email} = res.data.data
