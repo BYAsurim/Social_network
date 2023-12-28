@@ -15,6 +15,14 @@ import {Users} from "./Users";
 import Preloader from "../common/preloader/Preloader";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redax/users-selectors";
 
 
 type MapStateToPropsType = {
@@ -36,13 +44,6 @@ type mapDispatchToPropsType = {
     followUser: (id: number) => void
 
 }
-// const instance = axios.create({
-//     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-//     withCredentials: true,
-//     headers: {
-//         'API-KEY': 'e7e3f008-e2dc-4435-835d-1184d4097cbd'
-//     }
-// })
 
 export type UsersPropsType = MapStateToPropsType & mapDispatchToPropsType
 
@@ -88,10 +89,20 @@ class UsersContainer extends React.Component<UsersPropsType, Array<UsersPageType
 }
 
 
-let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-    return (
-        state.usersReducer
-    )
+// let mapStateToProps_ = (state: AppStateType): MapStateToPropsType => {
+//     return (
+//         state.usersReducer
+//     )
+// }
+let mapStateToProps = (state: AppStateType):MapStateToPropsType => {
+    return {
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount:getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
+    }
 }
 
 
