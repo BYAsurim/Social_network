@@ -13,7 +13,8 @@ type MyPostsPropsType = {
 }
 
 
-const MyPosts = (props: MyPostsPropsType) => {
+const MyPosts = React.memo((props: MyPostsPropsType) => {
+    console.log('render')
 
     const onAddPost = (value: FormDataType) => {
         props.addPost(value.newPost)
@@ -38,7 +39,9 @@ const MyPosts = (props: MyPostsPropsType) => {
             </div>
         </div>
     );
-};
+}, (prevProps, nextProps) => {
+    return prevProps !== nextProps
+})
 
 export default MyPosts;
 
