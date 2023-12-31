@@ -58,7 +58,7 @@ export type PhotosType = {
     large: string
 }
 
-export  type IninitialStateType = typeof initialState
+export  type InitialStateType = typeof initialState
 let initialState = {
     posts: [
         {id: v1(), post: "Сегодня замечательный день!", likecount: 10},
@@ -71,7 +71,7 @@ let initialState = {
     status: ''
 }
 
-export const profileReducer = (state: IninitialStateType = initialState, action: ActionsType): IninitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "ADD-POST": {
             const newPost = {
@@ -79,8 +79,7 @@ export const profileReducer = (state: IninitialStateType = initialState, action:
                 post: action.newPost,
                 likecount: 0
             }
-            let stateCopy = {...state, posts: [...state.posts,  newPost]}
-            return stateCopy
+            return {...state, posts: [...state.posts,  newPost]}
         }
         case "SET-USER-PROFILE": {
             return {...state, profile: action.profile}
