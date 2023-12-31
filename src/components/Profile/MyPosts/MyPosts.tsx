@@ -13,9 +13,7 @@ type MyPostsPropsType = {
 }
 
 
-const MyPosts = React.memo((props: MyPostsPropsType) => {
-    console.log('render')
-
+const MyPosts = (props: MyPostsPropsType) => {
     const onAddPost = (value: FormDataType) => {
         props.addPost(value.newPost)
     }
@@ -39,9 +37,7 @@ const MyPosts = React.memo((props: MyPostsPropsType) => {
             </div>
         </div>
     );
-}, (prevProps, nextProps) => {
-    return prevProps !== nextProps
-})
+}
 
 export default MyPosts;
 
@@ -63,7 +59,7 @@ const PostsForm = (props: InjectedFormProps<FormDataType>) => {
 
             />
             <div>
-                <button className={s.sendButton}>Add post</button>
+                <button className={s.sendButton} >Add post</button>
             </div>
         </form>
     </div>
