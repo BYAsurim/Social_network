@@ -1,10 +1,10 @@
 import React from 'react';
 import {UsersPropsType} from "./UsersContainer";
-import s from './users.module.css'
+import s from './user/user.module.css'
 import axios from "axios";
 import photo from '../../images/images.jpg'
 
-const Users: React.FC<UsersPropsType> = ({users, follow, unFollow, setUsers}) => {
+const UsersFunc: React.FC<UsersPropsType> = ({users, follow, unFollow, setUsers}) => {
 const getUSers = () =>{
     if (users.length === 0) {
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
@@ -62,4 +62,4 @@ const getUSers = () =>{
     );
 };
 
-export default Users;
+export default UsersFunc;

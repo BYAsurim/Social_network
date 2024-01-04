@@ -6,7 +6,7 @@ import {getProfile, setStatus, upDateStatus} from "../api/api";
 export const addPostAC = (newPost: string) => {
     return {
         type: 'ADD-POST',
-       newPost
+        newPost
     } as const
 }
 
@@ -79,7 +79,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                 post: action.newPost,
                 likecount: 0
             }
-            return {...state, posts: [...state.posts,  newPost]}
+            return {...state, posts: [...state.posts, newPost]}
         }
         case "SET-USER-PROFILE": {
             return {...state, profile: action.profile}
@@ -87,7 +87,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         case "SET-STATUS": {
             return {...state, status: action.status}
         }
-        case "NEW-STATUS-TEXT":{
+        case "NEW-STATUS-TEXT": {
             return {...state, status: action.status}
         }
 
@@ -96,23 +96,18 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
     }
 }
 
-export const getProfileTC = (id: number) => (dispatch: Dispatch) => {
-    getProfile(id)
-        .then((res) => {
-            dispatch(setUserProfileAC(res.data))
-        })
+export const getProfileTC = (id: number) => async (dispatch: Dispatch) => {
+    const res = await getProfile(id)
+    dispatch(setUserProfileAC(res.data))
 }
-export const setStatusTC = (userId: number) => (dispatch: Dispatch) => {
-    setStatus(userId)
-        .then((res) => {
-            dispatch(SetStatusAC(res.data))
-        })
+export const setStatusTC = (userId: number) => async (dispatch: Dispatch) => {
+    const res = await setStatus(userId)
+    dispatch(SetStatusAC(res.data))
 }
-export const upDateStatusTC = (status: string) => (dispatch: Dispatch) => {
-    upDateStatus(status)
-        .then((res) => {
-            if (res.data.resultCode === 0) {
-                dispatch(UpDateStatusAC(status))
-            }
-        })
+export const upDateStatusTC = (status: string) => async (dispatch: Dispatch) => {
+    const res = await upDateStatus(status)
+    if (res.data.resultCode === 0) {
+        dispatch(UpDateStatusAC(status))
+    }
+
 }

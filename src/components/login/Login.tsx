@@ -39,10 +39,10 @@ const Login = (props: LoginPropsType) => {
     );
 };
 
-export const LoginForm = (props: InjectedFormProps<FormDataType>) => {
+export const LoginForm = ({handleSubmit, error}: InjectedFormProps<FormDataType>) => {
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field placeholder={'email'}
                        name={'email'}
@@ -68,8 +68,8 @@ export const LoginForm = (props: InjectedFormProps<FormDataType>) => {
                 />
 
             </div>
-            {props.error && <div className={s.formSomeError}>
-                {props.error}
+            {error && <div className={s.formSomeError}>
+                {error}
             </div>}
             <div>
                 <button>login</button>

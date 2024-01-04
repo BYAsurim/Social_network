@@ -3,7 +3,10 @@ import {authMe, login, logOut} from "../api/api";
 import {AppThunkType} from "./redux-store";
 import {stopSubmit} from "redux-form";
 
-type ActionsType = ReturnType<typeof SetAuthUserDataAC>
+
+const SET_USER_DATA = 'AUTH/SET-USER-DATA'
+
+
 export  type InitialStateType = typeof initialState
 let initialState = {
     id: 0,
@@ -15,7 +18,7 @@ let initialState = {
 
 export const SetAuthUserDataAC = (id: number, email: string, login: string, isAuth: boolean) => {
     return {
-        type: 'SET-USER-DATA',
+        type: SET_USER_DATA,
         payload: {
             id, email, login, isAuth
         }
@@ -25,7 +28,7 @@ export const SetAuthUserDataAC = (id: number, email: string, login: string, isAu
 
 export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'SET-USER-DATA': {
+        case SET_USER_DATA: {
             return {
                 ...state,
                 ...action.payload
@@ -36,15 +39,13 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
     }
 }
 
-export const authMeTC = () => (dispatch: Dispatch) => {
-   return  authMe()
-        .then((res) => {
-            if (res.data.resultCode === 0) {
-                let {id, login, email} = res.data.data
-                dispatch(SetAuthUserDataAC(id, email, login, true))
-            }
+export const authMeTC = () => async (dispatch: Dispatch) => {
+    const res = await authMe()
+    if (res.data.resultCode === 0) {
+        let {id, login, email} = res.data.data
+        dispatch(SetAuthUserDataAC(id, email, login, true))
+    }
 
-        })
 }
 export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunkType => async (ThunkDispatch) => {
     const res = await login(email, password, rememberMe)
@@ -54,14 +55,17 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
         let action = stopSubmit('login', {_error: res.data.messages[0] || 'common error'})
         ThunkDispatch(action)
     }
-    /*login(email, password, rememberMe)
-        .then(res => {
 
-        })*/
 }
-export const logOutTC = () => (dispatch: Dispatch) => {
-    logOut()
-        .then(() => {
-            dispatch(SetAuthUserDataAC(0, '', '', false))
-        })
+export const logOutTC = () => async (dispatch: Dispatch) => {
+
+    const res = await logOut()
+    if (res.data.resultCode === 0) {
+        dispatch(SetAuthUserDataAC(0, '', '', false))
+    }
+
+
 }
+
+
+type ActionsType = ReturnType<typeof SetAuthUserDataAC>
