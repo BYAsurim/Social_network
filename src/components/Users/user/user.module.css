@@ -52,18 +52,6 @@
 .button {
 }
 
-.selectedPage {
-    font-weight: bold;
-}
-.selectedPageContainer  {
-  margin-left: 15rem;
-
-}
-.selectedPageContainer > span {
-
-    padding: 0 0.2rem;
-
-}
 .preLoader{
 
 }
