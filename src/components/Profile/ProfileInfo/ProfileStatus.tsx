@@ -6,11 +6,11 @@ type ProfileStatusPropsType = {
     upDateStatus: (status: string) => void
     changeStatus: (status: string) => void
 }
-export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({
-                                                                    status,
-                                                                    upDateStatus,
-                                                                    changeStatus,
-                                                                }) => {
+export const ProfileStatus = ({
+                                  status,
+                                  upDateStatus,
+                                  changeStatus,
+                              }: ProfileStatusPropsType) => {
     const [editMode, setEditMode] = useState(false)
 
     const changeEditModeHandler = () => {

@@ -30,7 +30,7 @@ export const Users: React.FC<UsersPropsType> = ({
         <div>
             <Paginator changeCurrentPageHandler={changeCurrentPageHandler}
                        pageSize={pageSize}
-                       totalUsersCount={totalUsersCount}
+                       totalItemsCount={totalUsersCount}
                        currentPage={currentPage}/>
 
             {users.map(u => <User key={u.id}
