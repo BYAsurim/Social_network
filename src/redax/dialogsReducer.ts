@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {addPostAC, SetStatusAC, setUserProfileAC, UpDateStatusAC} from "./profileReducer";
+import {addPostAC, SavePhotoAC, SetStatusAC, setUserProfileAC, UpDateStatusAC} from "./profileReducer";
 
 export type DialogsPageType = {
     profile: UserPropsType[]
@@ -19,7 +19,9 @@ export type ActionsType = ReturnType<typeof addPostAC> |
     ReturnType<typeof addMessageAC> |
     ReturnType<typeof setUserProfileAC> |
     ReturnType<typeof SetStatusAC> |
-    ReturnType<typeof UpDateStatusAC>
+    ReturnType<typeof UpDateStatusAC> |
+    ReturnType<typeof SavePhotoAC>
+
 
 
 export const addMessageAC = (newMessage: string) => {

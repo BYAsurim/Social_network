@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 import {ActionsType} from "./dialogsReducer";
 import {Dispatch} from "redux";
-import {getProfile, setStatus, upDateStatus} from "../api/api";
+import {getProfile, setStatus, upDatePhoto, upDateStatus} from "../api/api";
 
 export const addPostAC = (newPost: string) => {
     return {
@@ -26,6 +26,12 @@ export const UpDateStatusAC = (status: string) => {
     return {
         type: 'NEW-STATUS-TEXT',
         status
+    } as const
+}
+export const SavePhotoAC = (photos: PhotosType) => {
+    return {
+        type: 'UPDATE-PHOTO',
+        photos
     } as const
 }
 export type PostPropsType = {
@@ -90,6 +96,9 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         case "NEW-STATUS-TEXT": {
             return {...state, status: action.status}
         }
+        case "UPDATE-PHOTO": {
+            return {...state, profile: {...state.profile, photos: action.photos}}
+        }
 
         default:
             return state
@@ -109,5 +118,10 @@ export const upDateStatusTC = (status: string) => async (dispatch: Dispatch) => 
     if (res.data.resultCode === 0) {
         dispatch(UpDateStatusAC(status))
     }
-
+}
+export const savePhotoTC = (file: File) => async (dispatch: Dispatch) => {
+    const res = await upDatePhoto(file)
+    if (res.data.resultCode === 0) {
+        dispatch(SavePhotoAC(res.data.data.photos))
+    }
 }

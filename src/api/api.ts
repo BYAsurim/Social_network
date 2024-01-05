@@ -10,40 +10,48 @@ const instance = axios.create({
     }
 })
 // Users
-export const getUsers = (currentPage:number = 1, pageSize:number = 10)=>{
-   return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-       .then(res => res.data)
+export const getUsers = (currentPage: number = 1, pageSize: number = 10) => {
+    return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+        .then(res => res.data)
 }
-export const followUsers = (id: number)=>{
-   return instance.post(`follow/${id}`, {})
+export const followUsers = (id: number) => {
+    return instance.post(`follow/${id}`, {})
 
 }
-export const unFollowUsers = (id: number)=>{
-   return instance.delete(`follow/${id}`,)
+export const unFollowUsers = (id: number) => {
+    return instance.delete(`follow/${id}`,)
 
 }
 
 //Profile
-export const getProfile = (id:number)=>{
+export const getProfile = (id: number) => {
     return instance.get<ProfilePropsType>(`profile/${id}`)
 
 }
-export const setStatus = (userId:number)=>{
+export const setStatus = (userId: number) => {
     return instance.get(`profile/status/${userId}`)
 }
-export const upDateStatus = (status:string)=>{
+export const upDateStatus = (status: string) => {
     return instance.put('profile/status', {status})
 }
-
+export const upDatePhoto = (image: File) => {
+    const formData = new FormData()
+    formData.append('image', image)
+    return instance.put('profile/photo', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
 
 
 //Auth
-export const authMe = ()=>{
+export const authMe = () => {
     return instance.get(`auth/me`)
 }
-export const login = (email:string, password:string, rememberMe:boolean = false)=>{
+export const login = (email: string, password: string, rememberMe: boolean = false) => {
     return instance.post(`auth/login`, {email, password, rememberMe})
 }
-export const logOut = ()=>{
+export const logOut = () => {
     return instance.delete(`auth/login`)
 }

@@ -11,4 +11,7 @@
 .nameAndAbout > span {
     padding: 12px 0 0 15px;
 }
-
+.photoInput{
+    height: 25px;
+    width: 150px;
+}

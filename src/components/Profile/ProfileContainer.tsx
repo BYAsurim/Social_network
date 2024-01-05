@@ -1,7 +1,14 @@
 import React, {FC} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfileTC, ProfilePropsType, SetStatusAC, setStatusTC, upDateStatusTC} from "../../redax/profileReducer";
+import {
+    getProfileTC,
+    ProfilePropsType,
+    savePhotoTC,
+    SetStatusAC,
+    setStatusTC,
+    upDateStatusTC
+} from "../../redax/profileReducer";
 import {AppStateType} from "../../redax/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
@@ -20,6 +27,7 @@ type MapDispatchToProps = {
     setStatus: (userId: number) => void
     upDateStatus: (status: string) => void
     changeStatus: (status: string) => void
+    savePhoto: (file: File) => void
 }
 type PathParamsType = {
     userId: string
@@ -29,7 +37,7 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
 
 class ProfileContainer extends React.Component<PropsType, unknown> {
 
-    componentDidMount() {
+    refreshProfile() {
         let userId = +this.props.match.params.userId
         if (!userId) userId = this.props.authorizedUserId
         if (!userId) this.props.history.push('/login')
@@ -37,15 +45,29 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
         this.props.setStatus(userId)
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<unknown>, snapshot?: any) {
+
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+
+    }
+
     render() {
         // if (!this.props.isAuth) return <Redirect to={'/login'}/>
         return (
             <div>
                 <Profile
+                    isOwner={!this.props.match.params.userId}
                     profile={this.props.profile}
                     status={this.props.status}
                     upDateStatus={this.props.upDateStatus}
                     changeStatus={this.props.changeStatus}
+                    savePhoto={this.props.savePhoto}
                 />
             </div>
         );
@@ -73,6 +95,7 @@ export default compose<FC>(
         getProfile: getProfileTC,
         setStatus: setStatusTC,
         upDateStatus: upDateStatusTC,
+        savePhoto: savePhotoTC,
         changeStatus: SetStatusAC
     }),
     withRouter,
