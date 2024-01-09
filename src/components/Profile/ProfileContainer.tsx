@@ -2,9 +2,9 @@ import React, {FC} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
-    getProfileTC,
+    getProfileTC, ProfileEditModeAC,
     ProfilePropsType,
-    savePhotoTC,
+    savePhotoTC, saveProfileTC,
     SetStatusAC,
     setStatusTC,
     upDateStatusTC
@@ -12,6 +12,7 @@ import {
 import {AppStateType} from "../../redax/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {ProfileFormDataType} from "./ProfileInfo/ProfileDataForm";
 
 
 export type ProfileContainerPropsType = MapStateToProps & MapDispatchToProps
@@ -20,6 +21,7 @@ type MapStateToProps = {
     isAuth: boolean
     status: string
     authorizedUserId: number
+    editMode:boolean
 }
 
 type MapDispatchToProps = {
@@ -28,6 +30,8 @@ type MapDispatchToProps = {
     upDateStatus: (status: string) => void
     changeStatus: (status: string) => void
     savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileFormDataType)=> void
+    profileEditMode: (value:boolean) => void
 }
 type PathParamsType = {
     userId: string
@@ -63,11 +67,14 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
             <div>
                 <Profile
                     isOwner={!this.props.match.params.userId}
+                    editMode={this.props.editMode}
                     profile={this.props.profile}
                     status={this.props.status}
                     upDateStatus={this.props.upDateStatus}
                     changeStatus={this.props.changeStatus}
                     savePhoto={this.props.savePhoto}
+                    saveProfile={this.props.saveProfile}
+                    profileEditMode={this.props.profileEditMode}
                 />
             </div>
         );
@@ -81,7 +88,8 @@ let MapStatetoProps = (state: AppStateType): MapStateToProps => {
         profile: state.profileReducer.profile,
         isAuth: state.authReducer.isAuth,
         status: state.profileReducer.status,
-        authorizedUserId: state.authReducer.id
+        authorizedUserId: state.authReducer.id,
+        editMode: state.profileReducer.profileEditMode
     }
 }
 
@@ -96,7 +104,9 @@ export default compose<FC>(
         setStatus: setStatusTC,
         upDateStatus: upDateStatusTC,
         savePhoto: savePhotoTC,
-        changeStatus: SetStatusAC
+        saveProfile: saveProfileTC,
+        changeStatus: SetStatusAC,
+        profileEditMode: ProfileEditModeAC
     }),
     withRouter,
     // WithAuthRedirect

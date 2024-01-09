@@ -43,6 +43,9 @@ export const upDatePhoto = (image: File) => {
         }
     })
 }
+export  const saveProfile = (profile: any)=>{
+    return instance.put(`profile`, profile)
+}
 
 
 //Auth

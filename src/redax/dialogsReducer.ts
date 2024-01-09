@@ -1,5 +1,12 @@
 import {v1} from "uuid";
-import {addPostAC, SavePhotoAC, SetStatusAC, setUserProfileAC, UpDateStatusAC} from "./profileReducer";
+import {
+    addPostAC,
+    ProfileEditModeAC,
+    SavePhotoAC,
+    SetStatusAC,
+    setUserProfileAC,
+    UpDateStatusAC
+} from "./profileReducer";
 
 export type DialogsPageType = {
     profile: UserPropsType[]
@@ -20,7 +27,8 @@ export type ActionsType = ReturnType<typeof addPostAC> |
     ReturnType<typeof setUserProfileAC> |
     ReturnType<typeof SetStatusAC> |
     ReturnType<typeof UpDateStatusAC> |
-    ReturnType<typeof SavePhotoAC>
+    ReturnType<typeof SavePhotoAC> |
+    ReturnType<typeof ProfileEditModeAC>
 
 
 

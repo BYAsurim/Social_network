@@ -25,7 +25,9 @@ export const ProfileStatus = ({
         <div>
             {
                 !editMode
-                    ? <span onDoubleClick={changeEditModeHandler}>{status || 'status here'}</span>
+                    ? <div>
+                        <b>Status: </b> <span onDoubleClick={changeEditModeHandler}>{status || 'status here'}</span>
+                    </div>
                     : <input type="text" value={status}
                              onBlur={changeEditModeHandler}
                              onChange={changeStatusText}

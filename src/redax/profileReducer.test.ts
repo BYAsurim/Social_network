@@ -8,7 +8,8 @@ it('new post should be added', () => {
 
         ] as Array<PostPropsType>,
         profile: {} as ProfilePropsType,
-        status: ''
+        status: '',
+        profileEditMode: false
     }
     let finishState = profileReducer(startState, action)
 

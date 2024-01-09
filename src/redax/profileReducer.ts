@@ -1,7 +1,10 @@
 import {v1} from "uuid";
 import {ActionsType} from "./dialogsReducer";
 import {Dispatch} from "redux";
-import {getProfile, setStatus, upDatePhoto, upDateStatus} from "../api/api";
+import {getProfile, saveProfile, setStatus, upDatePhoto, upDateStatus} from "../api/api";
+import {AppStateType, AppThunkType} from "./redux-store";
+import {stopSubmit} from "redux-form";
+import {ProfileFormDataType} from "../components/Profile/ProfileInfo/ProfileDataForm";
 
 export const addPostAC = (newPost: string) => {
     return {
@@ -34,6 +37,13 @@ export const SavePhotoAC = (photos: PhotosType) => {
         photos
     } as const
 }
+export const ProfileEditModeAC = (value: boolean) => {
+    return {
+        type: 'SET-EDIT-MODE-PROFILE-DATA',
+        value
+    } as const
+}
+
 export type PostPropsType = {
     id: string
     post: string;
@@ -74,7 +84,8 @@ let initialState = {
         {id: v1(), post: "Новый курс по JavaScript на IT-KAMASUTRA просто потрясающий!", likecount: 20}
     ] as Array<PostPropsType>,
     profile: {} as ProfilePropsType,
-    status: ''
+    status: '',
+    profileEditMode: false
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -98,6 +109,9 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         }
         case "UPDATE-PHOTO": {
             return {...state, profile: {...state.profile, photos: action.photos}}
+        }
+        case "SET-EDIT-MODE-PROFILE-DATA": {
+            return {...state, profileEditMode: action.value}
         }
 
         default:
@@ -123,5 +137,17 @@ export const savePhotoTC = (file: File) => async (dispatch: Dispatch) => {
     const res = await upDatePhoto(file)
     if (res.data.resultCode === 0) {
         dispatch(SavePhotoAC(res.data.data.photos))
+    }
+}
+export const saveProfileTC = (profile: ProfileFormDataType): AppThunkType => async (ThunkDispatch, getState: () => AppStateType) => {
+    const profileId = getState().authReducer.id
+
+    const res = await saveProfile(profile)
+    if (res.data.resultCode === 0) {
+        ThunkDispatch(ProfileEditModeAC(false))
+        await ThunkDispatch(getProfileTC(profileId))
+    } else {
+        let action = stopSubmit('ProfileData', {_error: res.data.messages[0] || 'common error'})
+        ThunkDispatch(action)
     }
 }
