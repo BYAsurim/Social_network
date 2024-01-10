@@ -43,7 +43,7 @@ export const upDatePhoto = (image: File) => {
         }
     })
 }
-export  const saveProfile = (profile: any)=>{
+export const saveProfile = (profile: any) => {
     return instance.put(`profile`, profile)
 }
 
@@ -52,9 +52,14 @@ export  const saveProfile = (profile: any)=>{
 export const authMe = () => {
     return instance.get(`auth/me`)
 }
-export const login = (email: string, password: string, rememberMe: boolean = false) => {
-    return instance.post(`auth/login`, {email, password, rememberMe})
+export const login = (email: string, password: string, rememberMe: boolean = false, captcha: string | null) => {
+    return instance.post(`auth/login`, {email, password, rememberMe, captcha})
 }
 export const logOut = () => {
     return instance.delete(`auth/login`)
+}
+
+//security
+export const getCaptchaUrl = () => {
+    return instance.get(`security/get-captcha-url`)
 }

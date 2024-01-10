@@ -1,10 +1,11 @@
 import {Dispatch} from "redux";
-import {authMe, login, logOut} from "../api/api";
+import {authMe, getCaptchaUrl, login, logOut} from "../api/api";
 import {AppThunkType} from "./redux-store";
 import {stopSubmit} from "redux-form";
 
 
 const SET_USER_DATA = 'AUTH/SET-USER-DATA'
+const GET_CAPTCHA_URL_SUCCESS = 'AUTH/GET-CAPTCHA-URL-SUCCESS'
 
 
 export  type InitialStateType = typeof initialState
@@ -14,6 +15,7 @@ let initialState = {
     login: '',
     isFetching: false,
     isAuth: false,
+    captchaURL: null as string | null
 }
 
 export const SetAuthUserDataAC = (id: number, email: string, login: string, isAuth: boolean) => {
@@ -24,11 +26,20 @@ export const SetAuthUserDataAC = (id: number, email: string, login: string, isAu
         }
     } as const
 }
+export const getCaptchaURLAC = (captchaURL: string) => {
+    return {
+        type: GET_CAPTCHA_URL_SUCCESS,
+        payload: {
+            captchaURL
+        }
+    } as const
+}
 
 
 export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case SET_USER_DATA: {
+        case SET_USER_DATA:
+        case GET_CAPTCHA_URL_SUCCESS: {
             return {
                 ...state,
                 ...action.payload
@@ -47,15 +58,17 @@ export const authMeTC = () => async (dispatch: Dispatch) => {
     }
 
 }
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunkType => async (ThunkDispatch) => {
-    const res = await login(email, password, rememberMe)
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): AppThunkType => async (ThunkDispatch) => {
+    const res = await login(email, password, rememberMe, captcha)
     if (res.data.resultCode === 0) {
-        ThunkDispatch(authMeTC())
+        await ThunkDispatch(authMeTC())
     } else {
+        if (res.data.resultCode === 10) {
+            await ThunkDispatch(getCaptchaTC())
+        }
         let action = stopSubmit('login', {_error: res.data.messages[0] || 'common error'})
         ThunkDispatch(action)
     }
-
 }
 export const logOutTC = () => async (dispatch: Dispatch) => {
 
@@ -63,9 +76,14 @@ export const logOutTC = () => async (dispatch: Dispatch) => {
     if (res.data.resultCode === 0) {
         dispatch(SetAuthUserDataAC(0, '', '', false))
     }
+}
 
-
+export const getCaptchaTC = () => async (dispatch: Dispatch) => {
+    const res = await getCaptchaUrl()
+    const captchaURL = res.data.url
+    dispatch(getCaptchaURLAC(captchaURL))
 }
 
 
 type ActionsType = ReturnType<typeof SetAuthUserDataAC>
+    | ReturnType<typeof getCaptchaURLAC>

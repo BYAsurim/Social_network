@@ -13,17 +13,19 @@ type FormDataType = {
     email: string
     password: string
     rememberME: boolean
+    captcha: string
 }
 type LoginPropsType = {
     isAuth: boolean
-    loginTC: (email: string, password: string, rememberMe: boolean) => void
+    captchaURL: string | null
+    loginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
 
 const Login = (props: LoginPropsType) => {
 
 
     const onSubmit = (formData: FormDataType) => {
-        props.loginTC(formData.email, formData.password, formData.rememberME)
+        props.loginTC(formData.email, formData.password, formData.rememberME, formData.captcha)
     }
 
     if (props.isAuth) {
@@ -34,13 +36,19 @@ const Login = (props: LoginPropsType) => {
     return (
         <div>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captchaURL={props.captchaURL}/>
         </div>
     );
 };
 
-export const LoginForm = ({handleSubmit, error}: InjectedFormProps<FormDataType>) => {
-
+type LoginFormType = {
+    captchaURL: string | null
+}
+export const LoginForm = ({
+                              handleSubmit,
+                              error,
+                              captchaURL
+                          }: LoginFormType & InjectedFormProps<FormDataType, LoginFormType>) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -66,8 +74,13 @@ export const LoginForm = ({handleSubmit, error}: InjectedFormProps<FormDataType>
                        placeholder={'login'}
                        component={InputControls}
                 />
-
             </div>
+            {captchaURL && <img src={captchaURL} alt={'captcha'}/>}
+            {captchaURL && <Field placeholder={'Anti bot symbols'}
+                                  name={'captcha'}
+                                  component={InputControls}
+                                  validate={[requiredField]}
+            />}
             {error && <div className={s.formSomeError}>
                 {error}
             </div>}
@@ -78,12 +91,13 @@ export const LoginForm = ({handleSubmit, error}: InjectedFormProps<FormDataType>
 
     );
 };
-const LoginReduxForm = reduxForm<FormDataType>({
+const LoginReduxForm = reduxForm<FormDataType, LoginFormType>({
     form: 'login',
     //fields: [] // all the fields in your form
 })(LoginForm);
 
 const mapStateToProps = (state: AppStateType) => ({
-    isAuth: state.authReducer.isAuth
+    isAuth: state.authReducer.isAuth,
+    captchaURL: state.authReducer.captchaURL
 })
 export default connect(mapStateToProps, {loginTC})(Login)
