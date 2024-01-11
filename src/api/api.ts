@@ -24,7 +24,7 @@ export const unFollowUsers = (id: number) => {
 }
 
 //Profile
-export const getProfile = (id: number) => {
+export const getProfile = (id: number | null) => {
     return instance.get<ProfilePropsType>(`profile/${id}`)
 
 }

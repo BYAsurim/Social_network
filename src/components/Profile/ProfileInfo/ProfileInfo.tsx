@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from "./ProfileInfo.module.css";
 import Preloader from "../../common/preloader/Preloader";
 import {ProfilePropsType} from "../../../redax/profileReducer";
@@ -31,8 +31,6 @@ const ProfileInfo = ({
                          saveProfile,
                          profileEditMode
                      }: ProfileInfoPropsType) => {
-
-    // const [editMode, setEditMode] = useState(false)
 
     if (!profile) {
         return <Preloader/>

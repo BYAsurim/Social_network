@@ -42,7 +42,7 @@ const ProfileForm = ({
             <b> Looking for a job:</b> <Field name={'lookingForAJob'}
                                               type="checkbox"
                                               component={InputControls}
-                                              validate={[requiredField]}
+                                              // validate={[requiredField]}
         />
         </div>
 
