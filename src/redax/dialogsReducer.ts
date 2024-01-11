@@ -8,6 +8,8 @@ import {
     UpDateStatusAC
 } from "./profileReducer";
 
+const ADD_MESSAGE = 'ADD-MESSAGE'
+
 export type DialogsPageType = {
     profile: UserPropsType[]
     messages: Array<MessagePropsType>
@@ -34,7 +36,7 @@ export type ActionsType = ReturnType<typeof addPostAC> |
 
 export const addMessageAC = (newMessage: string) => {
     return {
-        type: 'ADD-MESSAGE',
+        type: ADD_MESSAGE,
         newMessage
     } as const
 }
@@ -61,7 +63,7 @@ let initialState:DialogsPageType = {
 export const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageType => {
 
     switch (action.type) {
-        case "ADD-MESSAGE":{
+        case ADD_MESSAGE:{
             const newMessage = {
                 id: v1(),
                 message: action.newMessage

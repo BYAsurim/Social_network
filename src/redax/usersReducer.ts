@@ -1,5 +1,7 @@
 import {followUsers, getUsers, unFollowUsers} from "../api/api";
 import {Dispatch} from "redux";
+import {handleServerAppError} from "../utils/error/handleServerAppError";
+import {handleServerNetworkError} from "../utils/error/handleServerNetworkError";
 
 
 const FOLLOW = 'USERS/FOLLOW'
@@ -116,36 +118,62 @@ export const ToggleIsFollowingAC = (followingProgress: boolean, UserId: number) 
 
 //thunk
 export const getUsersTC = (currentPage: number, pageSize: number) => async (dispatch: Dispatch) => {
-    dispatch(ToggleIsFetchingAC(true))
-    const res = await getUsers(currentPage, pageSize)
-    dispatch(ToggleIsFetchingAC(false))
-    dispatch(SetUsersAC(res.items))
-    dispatch(SetTotalUsersCountAC(res.totalCount))
+    try {
+        dispatch(ToggleIsFetchingAC(true))
+        const res = await getUsers(currentPage, pageSize)
+        dispatch(SetUsersAC(res.items))
+        dispatch(SetTotalUsersCountAC(res.totalCount))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(ToggleIsFetchingAC(false))
+    }
 
 }
 export const changeCurrentPageTC = (currentPage: number, pageSize: number) => async (dispatch: Dispatch) => {
-    dispatch(ToggleIsFetchingAC(true))
-    dispatch(SetCurrentPageAC(currentPage))
-    const res = await getUsers(currentPage, pageSize)
-    dispatch(ToggleIsFetchingAC(false))
-    dispatch(SetUsersAC(res.items))
+    try {
+        dispatch(ToggleIsFetchingAC(true))
+        dispatch(SetCurrentPageAC(currentPage))
+        const res = await getUsers(currentPage, pageSize)
+        dispatch(SetUsersAC(res.items))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(ToggleIsFetchingAC(false))
+    }
+
 
 }
 export const followUserTC = (id: number) => async (dispatch: Dispatch) => {
-    dispatch(ToggleIsFollowingAC(true, id))
-    const res = await followUsers(id)
-    if (res.data.resultCode === 0) {
-        dispatch(FollowAC(id))
+    try {
+        dispatch(ToggleIsFollowingAC(true, id))
+        const res = await followUsers(id)
+        if (res.data.resultCode === 0) {
+            dispatch(FollowAC(id))
+        } else {
+            handleServerAppError(res.data, dispatch)
+        }
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(ToggleIsFollowingAC(false, id))
     }
-    dispatch(ToggleIsFollowingAC(false, id))
+
 }
 export const unFollowUserTC = (id: number) => async (dispatch: Dispatch) => {
-    dispatch(ToggleIsFollowingAC(true, id))
-    const res = await unFollowUsers(id)
-    if (res.data.resultCode === 0) {
-        dispatch(UnFollowAC(id))
+    try {
+        dispatch(ToggleIsFollowingAC(true, id))
+        const res = await unFollowUsers(id)
+        if (res.data.resultCode === 0) {
+            dispatch(UnFollowAC(id))
+        } else {
+            handleServerAppError(res.data, dispatch)
+        }
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(ToggleIsFollowingAC(false, id))
     }
-    dispatch(ToggleIsFollowingAC(false, id))
 
 }
 

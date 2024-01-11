@@ -20,13 +20,13 @@ type MapStateToProps = {
     profile: ProfilePropsType
     isAuth: boolean
     status: string
-    authorizedUserId: number
+    authorizedUserId: number | null
     editMode:boolean
 }
 
 type MapDispatchToProps = {
-    getProfile: (id: number) => void
-    setStatus: (userId: number) => void
+    getProfile: (id: number | null) => void
+    setStatus: (userId: number | null) => void
     upDateStatus: (status: string) => void
     changeStatus: (status: string) => void
     savePhoto: (file: File) => void
@@ -42,7 +42,7 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
 class ProfileContainer extends React.Component<PropsType, unknown> {
 
     refreshProfile() {
-        let userId = +this.props.match.params.userId
+        let userId : number | null = +this.props.match.params.userId
         if (!userId) userId = this.props.authorizedUserId
         if (!userId) this.props.history.push('/login')
         this.props.getProfile(userId)

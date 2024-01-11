@@ -1,7 +1,8 @@
 import {Dispatch} from "redux";
 import {authMe, getCaptchaUrl, login, logOut} from "../api/api";
 import {AppThunkType} from "./redux-store";
-import {stopSubmit} from "redux-form";
+import {handleServerAppError} from "../utils/error/handleServerAppError";
+import {handleServerNetworkError} from "../utils/error/handleServerNetworkError";
 
 
 const SET_USER_DATA = 'AUTH/SET-USER-DATA'
@@ -10,7 +11,7 @@ const GET_CAPTCHA_URL_SUCCESS = 'AUTH/GET-CAPTCHA-URL-SUCCESS'
 
 export  type InitialStateType = typeof initialState
 let initialState = {
-    id: 0,
+    id: null as number | null,
     email: '',
     login: '',
     isFetching: false,
@@ -59,29 +60,43 @@ export const authMeTC = () => async (dispatch: Dispatch) => {
 
 }
 export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): AppThunkType => async (ThunkDispatch) => {
-    const res = await login(email, password, rememberMe, captcha)
-    if (res.data.resultCode === 0) {
-        await ThunkDispatch(authMeTC())
-    } else {
-        if (res.data.resultCode === 10) {
-            await ThunkDispatch(getCaptchaTC())
+    try {
+        const res = await login(email, password, rememberMe, captcha)
+        if (res.data.resultCode === 0) {
+            await ThunkDispatch(authMeTC())
+        } else {
+            if (res.data.resultCode === 10) {
+                await ThunkDispatch(getCaptchaTC())
+            }
+            handleServerAppError(res.data, ThunkDispatch)
         }
-        let action = stopSubmit('login', {_error: res.data.messages[0] || 'common error'})
-        ThunkDispatch(action)
+
+    } catch (e) {
+        handleServerNetworkError(e, ThunkDispatch)
     }
 }
 export const logOutTC = () => async (dispatch: Dispatch) => {
-
-    const res = await logOut()
-    if (res.data.resultCode === 0) {
-        dispatch(SetAuthUserDataAC(0, '', '', false))
+    try {
+        const res = await logOut()
+        if (res.data.resultCode === 0) {
+            dispatch(SetAuthUserDataAC(0, '', '', false))
+        } else {
+            handleServerAppError(res.data, dispatch)
+        }
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
     }
 }
 
+
 export const getCaptchaTC = () => async (dispatch: Dispatch) => {
-    const res = await getCaptchaUrl()
-    const captchaURL = res.data.url
-    dispatch(getCaptchaURLAC(captchaURL))
+    try {
+        const res = await getCaptchaUrl()
+        const captchaURL = res.data.url
+        dispatch(getCaptchaURLAC(captchaURL))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+    }
 }
 
 
