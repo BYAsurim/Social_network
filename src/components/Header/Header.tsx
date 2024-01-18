@@ -1,11 +1,12 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Header.module.css';
+import logo from '../../images/logo.png'
 
 type HeaderPropsType = {
     isAuth: boolean,
     login: string,
-    logOut: ()=> void
+    logOut: () => void
 }
 
 const Header: React.FC<HeaderPropsType> = ({
@@ -16,12 +17,14 @@ const Header: React.FC<HeaderPropsType> = ({
 ) => {
     return (
         <header className={s.header}>
-            <img src="https://static.wikia.nocookie.net/0c9787f8-4011-4dbe-9ca0-44fafba10dec/scale-to-width/755"
-                 alt=""/>
+            <img src={logo} className={s.logo}
+                 alt="logo"/>
             <div className={s.login}>
                 {isAuth
-                    ? <div>{login} - <button onClick={logOut}> Log out </button> </div>
-                    : <NavLink to={'/login'}> Login</NavLink>
+                    ? <div>{login} - <button onClick={logOut} className={s.button}> Log out </button></div>
+                    : <NavLink to={'/login'}>
+                        <button className={s.buttonLogin}> Login</button>
+                    </NavLink>
                 }
 
             </div>

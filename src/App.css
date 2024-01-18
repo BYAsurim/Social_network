@@ -1,24 +1,25 @@
 .app-wrapper {
     display: grid;
-    grid-template-areas:
-
-'h h'
-'n c';
-
+    grid-template-areas:'h h'
+                        'n c';
     grid-template-rows: 90px 1fr;
     grid-template-columns: 2fr 10fr;
-     grid-gap: 10px;
+    height: 97vh;
+
 
 }
 
 .app-wrapper-content {
     grid-area: c;
-    background-color: rgb(252, 249, 116);
+    background-color: #edeef0
+
 }
-.error-message{
+
+.error-message {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
     bottom: 0;
 }
+
 

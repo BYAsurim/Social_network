@@ -1,16 +1,52 @@
 .header {
     grid-area: h;
-    background-color: green;
+    background-color: #272930;
 
 }
 
-.header img {
-    width: 40px;
+.logo {
+    width: 80px;
+    height: 80px;
+    margin-left: 30px;
 }
 
 .login {
-float: right;
+    float: right;
+    margin-right: 100px;
+    margin-top: 20px;
+    color: white;
 }
+
+.button {
+    background-color: #2d6ff7;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+}
+.button:hover {
+    cursor: pointer;
+    background-color: #ff0000;
+}
+
+.buttonLogin {
+    background-color: #2d6ff7;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+}
+.buttonLogin:hover {
+    cursor: pointer;
+    background-color: #008000;
+}
+
+
+
 .login > a {
     color: #f9f9f9;
     font-size: 20px;

@@ -1,22 +1,44 @@
 .navigation {
     grid-area: n;
-    background-color: whitesmoke;
+    position: relative;
+    background-color: #edeef0;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bolder;
+    margin: 20px 0 0 35px;
 }
 
 .item a {
-    color: deepskyblue;
+    color: #26333b;
     text-decoration: none;
+    filter: grayscale(80);
+}
 
+.item .img {
+    padding-right:7px;
+}
+.item :hover {
+    color: #2d6ff7;
+    filter: grayscale(0);
 }
 
 .item .activeLink {
-    color:darkblue;
+    color: #2d6ff7;
+    filter: grayscale(0);
 }
-.friends{
-    padding-top: 20px;
-
-    font-size: 20px;
-}
-.best_friends{
+.appLine{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #dce1e6;
 
 }

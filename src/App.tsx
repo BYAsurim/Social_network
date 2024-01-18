@@ -6,9 +6,8 @@ import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import Friends from "./components/Friends/Friends";
 //import DialogsContainer from "./components/Dialogs/DialogsConteiner";
-import store, {AppStateType} from "./redax/redux-store";
+import {AppStateType} from "./redax/redux-store";
 //import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import Login from "./components/login/Login";
@@ -37,10 +36,6 @@ class App extends React.Component<AppPropsType, unknown> {
 
     componentDidMount() {
         this.props.initializedApp()
-
-        // window.addEventListener("unhandledrejection", function (promiseRejectionEvent) {
-        //     // handle error here, for example log
-        // });
     }
 
     render() {
@@ -51,18 +46,9 @@ class App extends React.Component<AppPropsType, unknown> {
         return (
             <div className='app-wrapper'>
                 <HeaderContainer/>
-                <Navbar friends={store.getState().navbarReducer}/>
+                <Navbar />
                 <div className={'app-wrapper-content'}>
-                    {/*<Route path={'/dialogs'} render={() =>*/}
-                    {/*    <Suspense fallback={<Preloader/>}>*/}
-                    {/*        <DialogsContainer/>*/}
-                    {/*    </Suspense>*/}
-                    {/*}/>*/}
-                    {/*<Route path={'/users'} render={() =>*/}
-                    {/*    <Suspense fallback={<Preloader/>}>*/}
-                    {/*        <UsersContainer/>*/}
-                    {/*    </Suspense>*/}
-                    {/*}/>*/}
+                    <div className={'app-line'}></div>
                     <Switch>
                         <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
                         <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
@@ -71,7 +57,6 @@ class App extends React.Component<AppPropsType, unknown> {
                         <Route path={'/news'} component={News}/>
                         <Route path={'/music'} component={Music}/>
                         <Route path={'/settings'} component={Settings}/>
-                        <Route path={'/friends'} render={() => <Friends/>}/>
                         <Route path={'/login'} render={() => <Login/>}/>
                         <Route path={'*'} render={() => <Redirect to={'/404'}/>}/>
                         <Route path={'/404'} render={() => <div>NOT FOUND</div>}/>
