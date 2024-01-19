@@ -1,0 +1,42 @@
+.button {
+    margin:  0 0 10px 200px;
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 20px;
+    color: #8bbcd6;
+    font-weight: bold;
+}
+.button:hover{
+    cursor: pointer;
+    color: #2d6ff7;
+}
+
+.error {
+    border: solid rgba(255, 60, 0, 0.95) 1px;
+    padding: 5px;
+    color: #ad1414;
+    width: 200px
+}
+
+.fieldContainer {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.field {
+    margin-left: 15px;
+    padding: 2px;
+    box-sizing: border-box;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    width: 100%;
+    border-radius: 10px;
+    font-family:inherit;
+    font-size: inherit;
+    border: 1px solid #fff;
+
+}
+.field:hover{
+    border: 1px solid #aaa;
+}

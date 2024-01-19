@@ -1,17 +1,112 @@
-.descriptionBlock{
+.descriptionBlock {
     padding: 10px;
 }
-.container{
+
+.container {
     display: flex;
+    text-align: left;
 }
-.nameAndAbout{
+
+.nameAndAbout {
     display: flex;
     flex-direction: column;
+    margin-left: 25px;
+    width: 100%;
 }
-.nameAndAbout > span {
-    padding: 12px 0 0 15px;
+
+.nameAndAbout span {
+    padding: 12px 0 0 0;
+
 }
-.photoInput{
-    height: 25px;
-    width: 150px;
+
+.photoContainer {
+    position: relative;
+    display: inline-block;
 }
+
+.photo {
+    border-radius: 50px;
+}
+
+.photoInput {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.photoInput:hover {
+    opacity: 30%;
+}
+
+.fullName {
+    font-size: 20px;
+    font-weight: bolder;
+
+}
+
+.status {
+    margin-top: 5px;
+}
+
+.line {
+    width: 50%;
+    height: 1px;
+    background-color: #bfc0ba;
+}
+
+
+.profileData {
+    margin-top: 15px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #8bbcd6;
+}
+
+.containerText {
+    display: flex;
+    padding-left: 10px;
+}
+
+.text {
+    margin-right: 10px;
+}
+
+.contactsTitle {
+    display: flex;
+    margin: 10px 0 10px 10px
+}
+
+.contactsButton {
+    margin-left: 100px;
+    background-color: #fff;
+    border: 1px solid #7c7f85;
+    border-radius: 25px;
+    width: 100px;
+    height: 20px;
+    color: #7c7f85;
+    font-weight: bold;
+}
+.w{
+
+}
+
+.contactsButton:hover {
+    cursor: pointer;
+    background-color: #2d6ff7;
+    color: #fff;
+    border: none;
+}
+
+.italic {
+    font-style: italic;
+}
+
+
+

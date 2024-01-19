@@ -3,8 +3,8 @@ import s from "./MyPosts.module.css";
 import Post from "./Posts/Post";
 import {AppStateType} from "../../../redax/redux-store";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
 import InputControls from "../../common/FormsControl/FormsControl";
+import {Paper} from "@mui/material";
 
 
 type MyPostsPropsType = {
@@ -19,7 +19,7 @@ const MyPosts = (props: MyPostsPropsType) => {
     }
 
     return (
-        <div>
+        <div className={s.myPostContainer}>
             <div className={s.postsBlock}>
                 My posts
             </div>
@@ -29,7 +29,11 @@ const MyPosts = (props: MyPostsPropsType) => {
                 {
                     props.profilePage.profileReducer.posts.map((el) => {
                         return (
-                            <Post key={el.id} id={el.id} post={el.post} likecount={el.likecount}/>
+                            <Paper elevation={3}
+                            className={s.postWrapper}
+                            >
+                                <Post key={el.id} id={el.id} name={el.name} post={el.post} likecount={el.likecount}/>
+                            </Paper>
                         )
                     })
                 }
@@ -45,24 +49,23 @@ export default MyPosts;
 type FormDataType = {
     newPost: string
 }
-const maxLength10 = maxLengthCreator(10)
+
 
 const PostsForm = (props: InjectedFormProps<FormDataType>) => {
 
-    return <div className={s.inputButton}>
-        <form onSubmit={props.handleSubmit}>
+    return <form onSubmit={props.handleSubmit}>
+        <div className={s.inputButtonContainer}>
             <Field placeholder={'Post message'}
                    name={'newPost'}
                    component={InputControls}
                    className={s.inputField}
-                   validate={[requiredField, maxLength10]}
-
             />
             <div>
-                <button className={s.sendButton} >Add post</button>
+                <button className={s.sendButton}>Add post</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+
 }
 const AddPostsForm = reduxForm<FormDataType>({
     form: 'AddPostsForm',

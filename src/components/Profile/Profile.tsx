@@ -3,6 +3,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsConteiner from "./MyPosts/MyPostsConteiner";
 import {ProfilePropsType} from "../../redax/profileReducer";
 import {ProfileFormDataType} from "./ProfileInfo/ProfileDataForm";
+import s from './Profile.module.css'
 
 type ProfilePagePropsType = {
     isOwner:boolean
@@ -19,7 +20,7 @@ type ProfilePagePropsType = {
 const Profile = (props: ProfilePagePropsType) => {
 
     return (
-        <div>
+        <div className={s.profile}>
             <ProfileInfo {...props} />
             <MyPostsConteiner/>
         </div>

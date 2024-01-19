@@ -58,11 +58,11 @@ export  type InitialStateType = typeof initialState
 
 let initialState = {
     posts: [
-        {id: v1(), post: "Сегодня замечательный день!", likecount: 10},
-        {id: v1(), post: "Наконец-то закончил проект!", likecount: 25},
-        {id: v1(), post: "Как же я люблю путешествовать!", likecount: 15},
-        {id: v1(), post: "Вчера был на концерте своей любимой группы!", likecount: 30},
-        {id: v1(), post: "Новый курс по JavaScript на IT-KAMASUTRA просто потрясающий!", likecount: 20}
+        {id: v1(), name: 'Alex', post: "Сегодня замечательный день!", likecount: 10},
+        {id: v1(),name: 'Alex', post: "Наконец-то закончил проект!", likecount: 25},
+        {id: v1(),name: 'Alex', post: "Как же я люблю путешествовать!", likecount: 15},
+        {id: v1(),name: 'Alex', post: "Вчера был на концерте своей любимой группы!", likecount: 30},
+        {id: v1(),name: 'Alex', post: "Новый курс по JavaScript на IT-KAMASUTRA просто потрясающий!", likecount: 20}
     ] as Array<PostPropsType>,
     profile: {} as ProfilePropsType,
     status: '',
@@ -74,6 +74,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         case ADD_POST: {
             const newPost = {
                 id: v1(),
+                name:'User ',
                 post: action.newPost,
                 likecount: 0
             }
@@ -150,6 +151,7 @@ export const saveProfileTC = (profile: ProfileFormDataType): AppThunkType => asy
 //types
 export type PostPropsType = {
     id: string
+    name:string
     post: string;
     likecount: number;
 }

@@ -44,7 +44,7 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
     refreshProfile() {
         let userId : number | null = +this.props.match.params.userId
         if (!userId) userId = this.props.authorizedUserId
-        if (!userId) this.props.history.push('/login')
+        // if (!userId) this.props.history.push('/login')  // рудирект на логин невозможно зайти на профайл
         this.props.getProfile(userId)
         this.props.setStatus(userId)
     }
@@ -60,6 +60,7 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
         }
 
     }
+
 
     render() {
         // if (!this.props.isAuth) return <Redirect to={'/login'}/>
