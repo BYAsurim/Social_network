@@ -1,0 +1,72 @@
+.loginContainer {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.loginTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    height: 100px;
+    background-color: #2d6ff7;
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin: 0;
+}
+
+.buttonLogin {
+    cursor: pointer;
+    background-color: #2d6ff7;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+    width: 250px;
+}
+
+.text {
+    color: #7c7f85;
+    margin: 5px;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 300px;
+    background-color: white;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.field {
+    height: 30px;
+    width: 250px;
+}
+
+.checkBoxContainer {
+    width: 260px;
+    display: flex;
+    align-items: start;
+    margin: 15px;
+}
+.checkbox{
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.formSomeError {
+    border: solid rgba(255, 60, 0, 0.95) 1px;
+    padding: 5px;
+    color: #ad1414;
+    width: 200px;
+}

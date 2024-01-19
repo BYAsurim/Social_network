@@ -6,8 +6,7 @@ import {connect} from "react-redux";
 import {loginTC} from "../../redax/authReducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../redax/redux-store";
-import s from '../common/FormsControl/FormsControl.module.css'
-
+import s from './login.module.css'
 
 type FormDataType = {
     email: string
@@ -34,8 +33,8 @@ const Login = (props: LoginPropsType) => {
 
 
     return (
-        <div>
-            <h1>Login</h1>
+        <div className={s.loginContainer}>
+            <h1 className={s.loginTitle}>Sign In</h1>
             <LoginReduxForm onSubmit={onSubmit} captchaURL={props.captchaURL}/>
         </div>
     );
@@ -50,30 +49,39 @@ export const LoginForm = ({
                               captchaURL
                           }: LoginFormType & InjectedFormProps<FormDataType, LoginFormType>) => {
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={s.formContainer}>
             <div>
-                <Field placeholder={'email'}
+                <div>
+                    <div className={s.text}>Email</div>
+                </div>
+                <Field
+                    // placeholder={'Email'}
                        name={'email'}
                        component={InputControls}
                        validate={[requiredField]}
+                       className={s.field}
                 />
 
             </div>
             <div>
+                <div className={s.text}>Password</div>
                 <Field placeholder={'Password'}
                        name={'password'}
                        type={'password'}
                        component={InputControls}
                        validate={[requiredField]}
+                       className={s.field}
                 />
 
             </div>
-            <div>
+            <div className={s.checkBoxContainer}>
                 <Field type="checkbox"
                        name={'rememberME'}
                        placeholder={'login'}
                        component={InputControls}
+                       className={s.checkbox}
                 />
+                <div>Remember Me!</div>
             </div>
             {captchaURL && <img src={captchaURL} alt={'captcha'}/>}
             {captchaURL && <Field placeholder={'Anti bot symbols'}
@@ -85,7 +93,7 @@ export const LoginForm = ({
                 {error}
             </div>}
             <div>
-                <button>login</button>
+                <button className={s.buttonLogin}>Login</button>
             </div>
         </form>
 
