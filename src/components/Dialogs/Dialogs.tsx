@@ -10,7 +10,7 @@ import {maxLengthCreator, requiredField} from "../../utils/validators/validators
 
 const Dialogs = (props: DialogsPropsType) => {
 
-    const addNewMessage = (values:FormDataType) => {
+    const addNewMessage = (values: FormDataType) => {
         props.onAddMessage(values.newMessage)
     }
 
@@ -18,20 +18,19 @@ const Dialogs = (props: DialogsPropsType) => {
     const messageElements = props.dialogsPage.messages.map(el => <Message key={el.id} id={el.id} message={el.message}/>)
 
     return (
-        <div className={s.dialogs}>
-            <div className={s.dialogsItem}>
-                {dialogsElements}
+        <div className={s.dialogsContainer}>
+            <div className={s.elemMessagesContainer}>
+                <div className={s.dialogsItem}>
+                    {dialogsElements}
+                </div>
+                <div className={s.messages}>
+                    {
+                        messageElements
+                    }
+
+                </div>
             </div>
-            <div className={s.messages}>
-                {
-                    messageElements
-                }
-
-            </div>
-            <div></div>
-            <DialogsAddMessageForm  onSubmit={addNewMessage}/>
-
-
+            <DialogsAddMessageForm onSubmit={addNewMessage}/>
         </div>
     )
 }
@@ -39,18 +38,18 @@ export default Dialogs;
 
 
 type FormDataType = {
-    newMessage:string
+    newMessage: string
 }
 
 const maxLength50 = maxLengthCreator(50)
 const DialogsForm = (props: InjectedFormProps<FormDataType>) => {
-    return <div className={s.inputButton}>
-        <form onSubmit={props.handleSubmit}>
+    return <div>
+        <form onSubmit={props.handleSubmit} className={s.inputButton}>
             <Field placeholder={'Enter your message'}
                    name={'newMessage'}
                    component={InputControls}
                    className={s.inputField}
-                   validate={[requiredField,maxLength50]}
+                   validate={[requiredField, maxLength50]}
             />
             <div>
                 <button className={s.sendButton}>send</button>

@@ -48,7 +48,6 @@ let initialState:DialogsPageType = {
         {id: v1(), name: "Dima"},
         {id: v1(), name: "Lena"},
         {id: v1(), name: "Emily"},
-        {id: v1(), name: "Frank"}
     ],
     messages: [
         {id: v1(), message: "Привет! Как дела?"},
