@@ -16,7 +16,7 @@ const SET_FOLLOWING_IS_PROGRESS = 'USERS/SET-FOLLOWING-IS-PROGRESS'
 export  type InitialStateType = typeof initialState
 let initialState = {
     users: [] as Array<UsersPageType>,
-    pageSize: 10,
+    pageSize: 9,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,

@@ -1,14 +1,43 @@
+.selectedPageContainer {
+    margin-left: 400px;
+}
+
+.button {
+    background-color: #fff;
+    border: #7c7f85;
+    width: 30px;
+    height: 40px;
+    color: #7c7f85;
+    font-weight: bolder;
+    margin: 10px 15px 100px 0;
+
+}
+
+.button:hover {
+    background-color: #272930;
+    color: #fff;
+    cursor: pointer;
+}
+.pageNumber{
+    width: 30px;
+    padding: 10px 10px 10px 10px;
+    height: 40px;
+    background-color: white;
+    margin: 10px 15px 100px 0;
+}
+.pageNumber:hover{
+    background-color: #272930;
+    color: #fff;
+    cursor: pointer;
+}
+
 .selectedPage {
     font-weight: bold;
+    background-color: #2d6ff7;
+    color: #fff;
 }
-
-.selectedPageContainer {
-    margin-left: 15rem;
-
-}
-
-.selectedPageContainer > span {
-
-    padding: 0 0.2rem;
-
+.selectedPage:hover{
+    font-weight: bold;
+    background-color: #2d6ff7;
+    color: #fff;
 }

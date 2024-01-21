@@ -32,35 +32,21 @@ export const User = ({
         <div>
             <div className={s.wrapper}>
                 <div className={s.imgAndButton}>
-                    <div>
-                        <NavLink to={`/profile/${user.id}`}>
+                        <NavLink to={`/profile/${user.id}`} className={s.navLink}>
                             <img className={s.photo} src={user.photos.small === null ? photo : user.photos.small}
                                  alt="img"/>
+                            <div className={s.name}>{user.name}</div>
                         </NavLink>
-                    </div>
                     <div>
                         {
                             user.followed ?
-                                <button onClick={() => {
+                                <button className={s.button} onClick={() => {
                                     unFollowHandler(user.id)
                                 }} disabled={disabled.some(id => id === user.id)}>UnFollow</button> :
-                                <button onClick={() => {
+                                <button className={s.button} onClick={() => {
                                     followHandler(user.id)
                                 }} disabled={disabled.some(id => id === user.id)}>Follow</button>
                         }
-
-                    </div>
-
-                </div>
-                <div className={s.content}>
-                    <div className={s.nameAndStatus}>
-                        <div>{user.name}</div>
-                        <div>{user.status}</div>
-                    </div>
-                    <div className={s.location}>
-                        <div> {'user.location.country'}</div>
-                        <div>{'user.location.city'}</div>
-
                     </div>
                 </div>
             </div>

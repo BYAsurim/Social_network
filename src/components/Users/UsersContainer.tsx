@@ -49,24 +49,10 @@ export type UsersPropsType = MapStateToPropsType & mapDispatchToPropsType
 
 class UsersContainer extends React.Component<UsersPropsType, Array<UsersPageType>> {
     componentDidMount() {
-        // this.props.setIsFetching(true)
-        // getUsers(this.props.currentPage, this.props.pageSize)
-        //     .then((res) => {
-        //         this.props.setIsFetching(false)
-        //         this.props.setUsers(res.items)
-        //         this.props.setTotalUsersCount(res.totalCount)
-        //     })
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     changeCurrentPageHandler = (currentPage: number) => {
-        // this.props.setIsFetching(true)
-        // this.props.setCurrentPage(currentPage)
-        // getUsers(currentPage, this.props.pageSize)
-        //     .then((res) => {
-        //         this.props.setIsFetching(false)
-        //         this.props.setUsers(res.items)
-        //     })
         this.props.changeCurrentPage(currentPage, this.props.pageSize)
     }
 
@@ -88,12 +74,6 @@ class UsersContainer extends React.Component<UsersPropsType, Array<UsersPageType
     }
 }
 
-
-// let mapStateToProps_ = (state: AppStateType): MapStateToPropsType => {
-//     return (
-//         state.usersReducer
-//     )
-// }
 let mapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
         users: getUsers(state),

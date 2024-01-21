@@ -1,7 +1,12 @@
-.title {
-    padding-left: 1rem;
-    color: darkblue;
+.userContainer{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    height: 100%;
+    width: 70%;
+    margin-left: 50px;
 }
+
 
 .wrapper {
     display: flex;
@@ -11,47 +16,51 @@
 
 .imgAndButton {
     display: flex;
-    width: 8rem;
+    width: 200px;
+    height: 250px;
     align-items: center;
     flex-direction: column;
+    background-color: #fff;
+   border: 1px solid #e1e3e3;
+}
+.navLink{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
 }
 
 .photo {
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    padding-bottom: 0.2rem;
+    margin-top: 25px;
+    width: 80px;
+    height: 80px;
+    border-radius: 60px;
+    padding: 5px;
+    border: 3px solid #5e90f9;
+}
+.photo:hover{
+    border: 3px solid #272930;
 }
 
-.content {
-    display: flex;
-    border: 1px solid black;
-    border-radius: 1rem;
-    width: 30rem;
-    padding-left: 1em;
-    justify-content: space-between;
-
+.name{
+    margin-top: 15px;
+    color: #2d6ff7;
+    font-weight: bolder;
 }
-
-.nameAndStatus {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0.3rem 1rem;
-}
-
-.location {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 0.3rem 1rem;
+.name:hover{
+    color: #272930;
 }
 
 .button {
+    background-color: #2d6ff7;
+    border: none;
+    width: 80px;
+    height: 30px;
+    color: white;
+    font-weight: bolder;
+    margin-top: 35px;
 }
-
-.preLoader{
-
+.button:hover {
+    cursor: pointer;
+    background-color: #656565;
 }
