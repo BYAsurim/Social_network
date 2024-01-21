@@ -16,6 +16,7 @@ type MyPostsPropsType = {
 const MyPosts = (props: MyPostsPropsType) => {
     const onAddPost = (value: FormDataType) => {
         props.addPost(value.newPost)
+        value.newPost = ''
     }
 
     return (
