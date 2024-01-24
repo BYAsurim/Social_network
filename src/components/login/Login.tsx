@@ -65,7 +65,7 @@ export const LoginForm = ({
             </div>
             <div>
                 <div className={s.text}>Password</div>
-                <Field placeholder={'Password'}
+                <Field
                        name={'password'}
                        type={'password'}
                        component={InputControls}

@@ -10,9 +10,10 @@ import {
     upDateStatusTC
 } from "../../redax/profileReducer";
 import {AppStateType} from "../../redax/redux-store";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {ProfileFormDataType} from "./ProfileInfo/ProfileDataForm";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 export type ProfileContainerPropsType = MapStateToProps & MapDispatchToProps
@@ -21,7 +22,7 @@ type MapStateToProps = {
     isAuth: boolean
     status: string
     authorizedUserId: number | null
-    editMode:boolean
+    editMode: boolean
 }
 
 type MapDispatchToProps = {
@@ -30,8 +31,8 @@ type MapDispatchToProps = {
     upDateStatus: (status: string) => void
     changeStatus: (status: string) => void
     savePhoto: (file: File) => void
-    saveProfile: (profile: ProfileFormDataType)=> void
-    profileEditMode: (value:boolean) => void
+    saveProfile: (profile: ProfileFormDataType) => void
+    profileEditMode: (value: boolean) => void
 }
 type PathParamsType = {
     userId: string
@@ -42,9 +43,8 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
 class ProfileContainer extends React.Component<PropsType, unknown> {
 
     refreshProfile() {
-        let userId : number | null = +this.props.match.params.userId
+        let userId: number | null = +this.props.match.params.userId
         if (!userId) userId = this.props.authorizedUserId
-        // if (!userId) this.props.history.push('/login')  // рудирект на логин невозможно зайти на профайл
         this.props.getProfile(userId)
         this.props.setStatus(userId)
     }
@@ -63,7 +63,6 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
 
 
     render() {
-        // if (!this.props.isAuth) return <Redirect to={'/login'}/>
         return (
             <div>
                 <Profile
@@ -83,7 +82,6 @@ class ProfileContainer extends React.Component<PropsType, unknown> {
 
 }
 
-// let MapStatetoProps = (state: AppStateType) => ({profile: state.profileReduser.profile})
 let MapStatetoProps = (state: AppStateType): MapStateToProps => {
     return {
         profile: state.profileReducer.profile,
@@ -94,11 +92,6 @@ let MapStatetoProps = (state: AppStateType): MapStateToProps => {
     }
 }
 
-// const ComponetWithRouser = withRouter(ProfileContainer)
-// const AuthRedirectComponent = WithAuthRedirect(ComponetWithRouser)
-// export default connect(MapStatetoProps, {
-//     getProfile: getProfileTC
-// })(AuthRedirectComponent);
 export default compose<FC>(
     connect(MapStatetoProps, {
         getProfile: getProfileTC,
@@ -110,5 +103,5 @@ export default compose<FC>(
         profileEditMode: ProfileEditModeAC
     }),
     withRouter,
-    // WithAuthRedirect
+    WithAuthRedirect
 )(ProfileContainer);

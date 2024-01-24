@@ -46,12 +46,12 @@ class App extends React.Component<AppPropsType, unknown> {
         return (
             <div className='app-wrapper'>
                 <HeaderContainer/>
-                <Navbar />
+                <Navbar/>
                 <div className={'app-wrapper-content'}>
                     <div className={'app-line'}></div>
                     <Switch>
-                        <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
                         <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
+                        <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
                         <Route path={'/dialogs'} render={WithSuspense(DialogsContainer)}/>
                         <Route path={'/users'} render={WithSuspense(UsersContainer)}/>
                         <Route path={'/news'} component={News}/>
@@ -59,7 +59,7 @@ class App extends React.Component<AppPropsType, unknown> {
                         <Route path={'/settings'} component={Settings}/>
                         <Route path={'/login'} render={() => <Login/>}/>
                         <Route path={'*'} render={() => <Redirect to={'/404'}/>}/>
-                        <Route path={'/404'} render={() => <div>NOT FOUND</div>}/>
+                        <Route path={'/404'} render={() => <h1>NOT FOUND</h1>} />
                     </Switch>
                 </div>
                 <div className={'error-message'}>
