@@ -1,14 +1,14 @@
 import React from 'react';
 import s from "./Preloader.module.css";
-import preloader from "../../../images/preloader.svg";
+import {LinearProgress, Stack} from "@mui/material";
 
-type PreloaderPropsType = {
-
-}
+type PreloaderPropsType = {}
 const Preloader: React.FC<PreloaderPropsType> = () => {
     return (
         <div className={s.preLoader}>
-            <img src={preloader} alt="" />
+            <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+                <LinearProgress color="primary" />
+            </Stack>
         </div>
     );
 };

@@ -17,6 +17,7 @@ import {initializedTC} from "./redax/appReducer";
 import Preloader from "./components/common/preloader/Preloader";
 import {WithSuspense} from "./hoc/WithSuspense";
 import {ErrorMessage} from "./components/common/ErrorMessage";
+import NoteFound from "./components/NoteFound";
 
 const DialogsContainer = lazy(() => import("./components/Dialogs/DialogsConteiner"));
 const UsersContainer = lazy(() => import("./components/Users/UsersContainer"));
@@ -47,6 +48,7 @@ class App extends React.Component<AppPropsType, unknown> {
             <div className='app-wrapper'>
                 <HeaderContainer/>
                 <Navbar/>
+
                 <div className={'app-wrapper-content'}>
                     <div className={'app-line'}></div>
                     <Switch>
@@ -58,8 +60,8 @@ class App extends React.Component<AppPropsType, unknown> {
                         <Route path={'/music'} component={Music}/>
                         <Route path={'/settings'} component={Settings}/>
                         <Route path={'/login'} render={() => <Login/>}/>
-                        <Route path={'*'} render={() => <Redirect to={'/404'}/>}/>
-                        <Route path={'/404'} render={() => <h1>NOT FOUND</h1>} />
+                        <Route path={'*'} render={() => <NoteFound/>}/>
+                      {/*  <Route path={'/404'} render={() => <NoteFound/>}/>*/}
                     </Switch>
                 </div>
                 <div className={'error-message'}>
