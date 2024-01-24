@@ -1,10 +1,9 @@
 import React from 'react';
 
 const NoteFound = () => {
-    debugger
     return (
         <div>
-            <span>ERROR</span>
+            <span>PAGE NOT FOUND</span>
         </div>
     );
 };

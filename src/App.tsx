@@ -17,7 +17,7 @@ import {initializedTC} from "./redax/appReducer";
 import Preloader from "./components/common/preloader/Preloader";
 import {WithSuspense} from "./hoc/WithSuspense";
 import {ErrorMessage} from "./components/common/ErrorMessage";
-import NoteFound from "./components/NoteFound";
+import NoteFound from "./components/common/NoteFound";
 
 const DialogsContainer = lazy(() => import("./components/Dialogs/DialogsConteiner"));
 const UsersContainer = lazy(() => import("./components/Users/UsersContainer"));
